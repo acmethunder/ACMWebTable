@@ -7,15 +7,23 @@
 //
 
 #import "ACMAppDelegate.h"
+#import "ACMDemoVC.h"
 
 @implementation ACMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    
+    ACMDemoVC *demoVC = [[ACMDemoVC alloc] init];
+    
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:demoVC];
+    window.rootViewController = navVC;
+    
+    window.backgroundColor = [UIColor whiteColor];
+    [window makeKeyAndVisible];
+    self.window = window;
     return YES;
 }
 

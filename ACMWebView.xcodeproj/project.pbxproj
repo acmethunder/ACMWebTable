@@ -10,8 +10,14 @@
 		29AC4087194607B500FF9871 /* sample_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4086194607B500FF9871 /* sample_1.txt */; };
 		29AC4089194607DC00FF9871 /* sample_2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4088194607DC00FF9871 /* sample_2.txt */; };
 		29AC408B194607FA00FF9871 /* sample_3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408A194607FA00FF9871 /* sample_3.txt */; };
-		29AC408D1946081F00FF9871 /* sample_4 in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408C1946081F00FF9871 /* sample_4 */; };
+		29AC408D1946081F00FF9871 /* sample_4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408C1946081F00FF9871 /* sample_4.txt */; };
 		29AC408F1946088F00FF9871 /* sample_5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408E1946088F00FF9871 /* sample_5.txt */; };
+		29AC40901946139A00FF9871 /* sample_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4086194607B500FF9871 /* sample_1.txt */; };
+		29AC4091194613B700FF9871 /* sample_2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4088194607DC00FF9871 /* sample_2.txt */; };
+		29AC4092194613B700FF9871 /* sample_3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408A194607FA00FF9871 /* sample_3.txt */; };
+		29AC4093194613B700FF9871 /* sample_4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408C1946081F00FF9871 /* sample_4.txt */; };
+		29AC4094194613B700FF9871 /* sample_5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408E1946088F00FF9871 /* sample_5.txt */; };
+		29AC409A1946206900FF9871 /* ACMDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29AC40991946206900FF9871 /* ACMDemoVC.m */; };
 		516433A6194381DA00FC3B6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516433A5194381DA00FC3B6A /* Foundation.framework */; };
 		516433A8194381DA00FC3B6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516433A7194381DA00FC3B6A /* CoreGraphics.framework */; };
 		516433AA194381DA00FC3B6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516433A9194381DA00FC3B6A /* UIKit.framework */; };
@@ -42,8 +48,10 @@
 		29AC4086194607B500FF9871 /* sample_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_1.txt; sourceTree = "<group>"; };
 		29AC4088194607DC00FF9871 /* sample_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_2.txt; sourceTree = "<group>"; };
 		29AC408A194607FA00FF9871 /* sample_3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_3.txt; sourceTree = "<group>"; };
-		29AC408C1946081F00FF9871 /* sample_4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_4; sourceTree = "<group>"; };
+		29AC408C1946081F00FF9871 /* sample_4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_4.txt; sourceTree = "<group>"; };
 		29AC408E1946088F00FF9871 /* sample_5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_5.txt; sourceTree = "<group>"; };
+		29AC40981946206900FF9871 /* ACMDemoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMDemoVC.h; sourceTree = "<group>"; };
+		29AC40991946206900FF9871 /* ACMDemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMDemoVC.m; sourceTree = "<group>"; };
 		516433A2194381DA00FC3B6A /* ACMWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACMWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516433A5194381DA00FC3B6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		516433A7194381DA00FC3B6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -128,6 +136,8 @@
 				516433B5194381DA00FC3B6A /* ACMAppDelegate.m */,
 				516433B7194381DA00FC3B6A /* Images.xcassets */,
 				516433AC194381DA00FC3B6A /* Supporting Files */,
+				29AC40981946206900FF9871 /* ACMDemoVC.h */,
+				29AC40991946206900FF9871 /* ACMDemoVC.m */,
 			);
 			path = ACMWebView;
 			sourceTree = "<group>";
@@ -142,7 +152,7 @@
 				29AC4086194607B500FF9871 /* sample_1.txt */,
 				29AC4088194607DC00FF9871 /* sample_2.txt */,
 				29AC408A194607FA00FF9871 /* sample_3.txt */,
-				29AC408C1946081F00FF9871 /* sample_4 */,
+				29AC408C1946081F00FF9871 /* sample_4.txt */,
 				29AC408E1946088F00FF9871 /* sample_5.txt */,
 			);
 			name = "Supporting Files";
@@ -257,7 +267,7 @@
 				29AC408F1946088F00FF9871 /* sample_5.txt in Resources */,
 				29AC4089194607DC00FF9871 /* sample_2.txt in Resources */,
 				29AC408B194607FA00FF9871 /* sample_3.txt in Resources */,
-				29AC408D1946081F00FF9871 /* sample_4 in Resources */,
+				29AC408D1946081F00FF9871 /* sample_4.txt in Resources */,
 				29AC4087194607B500FF9871 /* sample_1.txt in Resources */,
 				516433B8194381DA00FC3B6A /* Images.xcassets in Resources */,
 			);
@@ -267,6 +277,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29AC40901946139A00FF9871 /* sample_1.txt in Resources */,
+				29AC4091194613B700FF9871 /* sample_2.txt in Resources */,
+				29AC4093194613B700FF9871 /* sample_4.txt in Resources */,
+				29AC4092194613B700FF9871 /* sample_3.txt in Resources */,
+				29AC4094194613B700FF9871 /* sample_5.txt in Resources */,
 				516433C9194381DA00FC3B6A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				516433B6194381DA00FC3B6A /* ACMAppDelegate.m in Sources */,
+				29AC409A1946206900FF9871 /* ACMDemoVC.m in Sources */,
 				516433DA194387E300FC3B6A /* ACMWebView.m in Sources */,
 				516433B2194381DA00FC3B6A /* main.m in Sources */,
 				516433D71943824000FC3B6A /* ACMWebTable.m in Sources */,

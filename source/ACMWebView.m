@@ -16,6 +16,28 @@ NSString * const kACMWebViewHeaderKey       = @"header";
 NSString * const kACMWebViewPreviousViewKey = @"previousView";
 NSString * const kACMWebViewNextViewKey     = @"nextView";
 
+#pragma mark Exception Names
+
+NSString * const kACMWebViewExceptionBadContentName   = @"com.acmwebview.exception.badcontent";
+NSString * const kACMWebViewExceptionBadContentReason = @"\'webContent\' must be either an instance of \'NSString,\' \'NSURL,\' or \'nil.\'";
+NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.exception.contentclass.key";
+
+#pragma mark -
+#pragma mark ACMWebView + Private
+
+@interface ACMWebView ()
+
+#pragma mark Content
+
+- (void) loadStringContent;
+- (void) loadURLContent;
+
+@end
+
+#pragma mark -
+#pragma mark ACMWebView
+#pragma mark -
+
 @implementation ACMWebView
 
 #pragma mark PUBLIC INSTANCE METHODS
@@ -32,6 +54,14 @@ NSString * const kACMWebViewNextViewKey     = @"nextView";
     return self;
 }
 
+- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView *)header baseURL:(NSURL*)baseURL {
+    if ( (self = [self initWithFrame:frame webContent:content header:header]) ) {
+        self->_baseURL = baseURL;
+    }
+    
+    return self;
+}
+
 #pragma mark Layout
 
 - (void) layoutSubviews {
@@ -43,22 +73,30 @@ NSString * const kACMWebViewNextViewKey     = @"nextView";
     }
 }
 
-#pragma mark ADOPTED PROTOCOLS
-#pragma mark UIWebViewDelegate
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return YES;
+- (void) willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    self.scrollView.contentOffset = CGPointMake( 0.0f, CGRectGetHeight(self.header.frame) );
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-}
+#pragma mark Content Management
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    
+- (void) loadContent {
+    id content = self.webContent;
+    if ( [content isKindOfClass:[NSString class]] ) {
+        [self loadStringContent];
+    }
+    else if ( [content isKindOfClass:[NSURL class]] ) {
+        [self loadURLContent];
+    }
+    else if ( content != nil ) {
+        NSDictionary *userInfo = @{
+                                   kACMWebViewExceptionContentClassKey : NSStringFromClass([content class] )
+                                   };
+        NSException *exception = [NSException exceptionWithName:kACMWebViewExceptionBadContentName
+                                                         reason:kACMWebViewExceptionBadContentReason
+                                                       userInfo:userInfo];
+        [exception raise];
+    }
 }
 
 #pragma mark PUBLIC PROPERTIES
@@ -70,11 +108,42 @@ NSString * const kACMWebViewNextViewKey     = @"nextView";
         [self->_header removeFromSuperview];
     }
 
+    CGFloat topInset = 0.0f;
+    if ( header ) {
+        [self.scrollView addSubview:header];
+        topInset = CGRectGetHeight(header.frame);
+    }
+    
     self->_header = header;
     
     [self didChangeValueForKey:kACMWebViewHeaderKey];
     
-    [self addSubview:self->_header];
+    self.scrollView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, 0.0f, 0.0f);
 }
+
+- (void) setWebContent:(id)webContent {
+    if ( (! webContent) || [webContent isKindOfClass:[NSString class]] || [webContent isKindOfClass:[NSURL class]] ) {
+        self->_webContent = webContent;
+    }
+}
+
+#pragma mark PRIVATE INSTANCE METHODS
+
+#pragma mark Content
+
+- (void) loadStringContent {
+    NSString *content = self.webContent;
+    NSParameterAssert( [content isKindOfClass:[NSString class]] );
+    [self loadHTMLString:content baseURL:self.baseURL];
+}
+
+- (void) loadURLContent {
+    NSURL *content = self.webContent;
+    NSParameterAssert( [content isKindOfClass:[NSURL class]] );
+    
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:content];
+    [self loadRequest:request];
+}
+
 
 @end
