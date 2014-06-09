@@ -72,13 +72,12 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
         header.frame = CGRectMake( 0.0f, 0.0f, CGRectGetWidth(headerFrame), -CGRectGetHeight(headerFrame) );
     }
     
+    self.scrollView.contentOffset = CGPointMake( 0.0f, CGRectGetHeight(self.header.frame) );
     self.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(header.frame), 0.0f, 0.0f, 0.0f);
 }
 
 - (void) willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
-    self.scrollView.contentOffset = CGPointMake( 0.0f, CGRectGetHeight(self.header.frame) );
-//    self.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.header.frame), 0.0f, 0.0f, 0.0f);
 }
 
 #pragma mark Content Management

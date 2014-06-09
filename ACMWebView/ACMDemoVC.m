@@ -106,7 +106,7 @@
 #pragma mark ADOPTED PROTOCOLS
 #pragma mark ACMDataSource
 
-- (NSUInteger) tableCount {
+- (NSInteger) tableCount {
     return self.items.count;
 }
 

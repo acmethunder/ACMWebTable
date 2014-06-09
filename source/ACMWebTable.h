@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, ACMWebTableScrollDirection){
 #pragma mark Table Management
 
 - (void) reloadWebTable;
+- (void) reloadWebTableAtIndex:(NSInteger)index;
 
 @property (nonatomic,strong) ACMWebView *currentView;
 @property (nonatomic,strong) ACMWebView *previousView;
@@ -51,7 +52,7 @@ typedef NS_ENUM(NSUInteger, ACMWebTableScrollDirection){
 @protocol ACMWebTableDataSource <NSObject>
 
 @required
-- (NSUInteger) tableCount;
+- (NSInteger) tableCount;
 - (ACMWebView*) viewForIndex:(NSUInteger)index;
 
 @end

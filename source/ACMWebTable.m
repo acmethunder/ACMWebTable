@@ -19,7 +19,11 @@
 
 - (void) scrollCurrentToTop;
 
+- (ACMWebView*) buildNext;
+- (ACMWebView*) buildPrevious;
+
 @property (nonatomic) NSInteger currentIndex;
+@property BOOL animating;
 
 @end
 
@@ -44,6 +48,11 @@
 #pragma mark Table Management
 
 - (void) reloadWebTable {
+    [self.previousView removeFromSuperview];
+    [self.currentView removeFromSuperview];
+    [self.nextView removeFromSuperview];
+    
+    
     NSInteger currentIndex = self.currentIndex;
     ACMWebView *current = [self.dataSource viewForIndex:self.currentIndex];
     current.delegate = self;
@@ -56,12 +65,27 @@
         self.previousView = nil;
     }
     else if (currentIndex > 0 ) {
-        ACMWebView *previous = [self.dataSource viewForIndex:(currentIndex - 1)];
-        [previous loadContent];
+        ACMWebView *previous = [self buildPrevious];
         self.previousView = previous;
     }
     
+    NSInteger count = [self.dataSource tableCount];
+    if ( (currentIndex > -1) && (currentIndex < (count - 1)) ) {
+        ACMWebView *nextView = [self buildNext];
+        nextView.delegate = self;
+        nextView.scrollView.delegate = self;
+        self.nextView = nextView;
+    }
+    
     [self coldSetUp];
+}
+
+- (void) reloadWebTableAtIndex:(NSInteger)index {
+    NSInteger count = [self.dataSource tableCount];
+    if ( (index >= count) && (index < count) ) {
+        self.currentIndex = index;
+        [self reloadWebTable];
+    }
 }
 
 #pragma mark ADOPTED PROTOCOLS
@@ -71,15 +95,17 @@
     return [self.delegate acmtable:self shouldLoadRequest:request navigationType:navigationType];
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {}
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+//    webView.userInteractionEnabled = NO;
+}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-//    if ( [webView isKindOfClass:[ACMWebView class]] ) {
+    if ( [webView isKindOfClass:[ACMWebView class]] ) {
 //        ACMWebView *tempWeb =  (ACMWebView*)webView;
 //        CGFloat height = CGRectGetHeight(tempWeb.header.frame) + tempWeb.scrollView.contentSize.height;
 //        tempWeb.scrollView.contentSize = CGSizeMake(CGRectGetWidth(tempWeb.frame), height);
 //        tempWeb.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(tempWeb.header.frame), 0.0f, 0.0f, 0.0f);
-//    }
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -104,7 +130,10 @@
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+    CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
+    if ( scrollOffset > 60.0f ) {
+        [self moveToNext];
+    }
 }
 
 #pragma mark ACMWebTable + PRIVATE
@@ -115,17 +144,81 @@
     CGFloat width = CGRectGetWidth(current.frame);
     CGFloat height = CGRectGetHeight(current.frame);
     
+    CGRect frame = CGRectMake(0.0f, 0.0f, width, height );
+    current.frame = frame;
+    
     if ( ! current.superview ) {
-        CGRect frame = CGRectMake(0.0f, 0.0f, width, height );
-        current.frame = frame;
         [self addSubview:current];
+    }
+    
+    ACMWebView *previous = self.previousView;
+    
+    CGRect previousFrame = previous.frame;
+    CGRect frameNew = CGRectMake(
+                                 0.0f,
+                                 CGRectGetHeight(previousFrame) * (-1),
+                                 CGRectGetWidth(previous.frame),
+                                 CGRectGetHeight(previous.frame) );
+    previous.frame = frameNew;
+    
+    if ( ! previous.superview ) {
+        [self addSubview:previous];
+    }
+    
+    ACMWebView *next = self.nextView;
+    CGRect nextFrame = next.frame;
+    CGRect nextFrameNew = CGRectMake(
+                                     0.0f,
+                                     CGRectGetHeight(current.frame),
+                                     CGRectGetWidth(nextFrame),
+                                     CGRectGetHeight(nextFrame) );
+    next.frame = nextFrameNew;
+    
+    if (! next.superview ) {
+        [self addSubview:next];
     }
     
     [self scrollCurrentToTop];
 }
 
 - (void) moveToNext {
-    
+    if ( (! self.animating) && self.nextView ) {
+        self.animating = YES;
+        __weak typeof(self.nextView) weakNext       = self.nextView;
+        __weak typeof(self.currentView) weakCurrent = self.currentView;
+        __weak typeof(self) weakSelf                = self;
+        
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             weakCurrent.frame = CGRectMake(
+                                                            0.0f,
+                                                            CGRectGetHeight(weakCurrent.frame) * (-1),
+                                                            CGRectGetWidth(weakCurrent.frame),
+                                                            CGRectGetHeight(weakCurrent.frame) );
+                             weakNext.frame = CGRectMake(
+                                                         CGRectGetMinX(weakSelf.frame),
+                                                         0.0f,
+                                                         CGRectGetWidth(weakSelf.frame),\
+                                                         CGRectGetHeight(weakSelf.frame) );
+                         } completion:^(BOOL finished) {
+                             if ( finished ) {
+                                 [weakSelf.previousView removeFromSuperview];
+                                 weakSelf.previousView = weakCurrent;
+                                 weakSelf.currentView = weakNext;
+                                 weakSelf.currentIndex++;
+                                 ACMWebView *nextNew = [weakSelf buildNext];
+                                 nextNew.delegate = weakSelf;
+                                 nextNew.scrollView.delegate = weakSelf;
+                                 nextNew.frame = CGRectMake(
+                                                            0.0f, CGRectGetHeight(weakSelf.currentView.frame),
+                                                            CGRectGetWidth(nextNew.frame),
+                                                            CGRectGetHeight(nextNew.frame) );
+                                 [weakSelf addSubview:nextNew];
+                                 weakSelf.nextView = nextNew;
+                                 weakSelf.animating = NO;
+                             }
+                         }];
+    }
 }
 
 - (void) moveToprevious {
@@ -138,6 +231,37 @@
     if ( [self.delegate respondsToSelector:@selector(acmTable:didDisplayCurrentView:)] ) {
         [self.delegate acmTable:self didDisplayCurrentView:self.currentView];
     }
+}
+
+- (ACMWebView*) buildNext {
+    NSInteger index = self.currentIndex;
+    NSInteger count = [self.dataSource tableCount];
+    
+    ACMWebView *webView = nil;
+    if ( (index > -1) && (index - (count - 1)) ) {
+        webView = [self.dataSource viewForIndex:(index + 1)];
+        
+        if ( webView ) {
+            [webView loadContent];
+        }
+    }
+    
+    return webView;
+}
+
+- (ACMWebView*) buildPrevious {
+    NSInteger index = self.currentIndex;
+    
+    ACMWebView *webView = nil;
+    if ( index > 0 ) {
+        webView = [self.dataSource viewForIndex:(index - 1)];
+        
+        if ( webView ) {
+            [webView loadContent];
+        }
+    }
+    
+    return webView;
 }
 
 @end
