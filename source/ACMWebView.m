@@ -12,29 +12,21 @@
 #pragma mark CONSTANTS
 #pragma mark Property Keys
 
-NSString * const kACMWebViewHeaderKey = @"header";
-NSString * const kACMWebViewFooterKey = @"footer";
-//NSString * const kACMWebViewKey       = @"webView";
+NSString * const kACMWebViewHeaderKey       = @"header";
+NSString * const kACMWebViewPreviousViewKey = @"previousView";
+NSString * const kACMWebViewNextViewKey     = @"nextView";
 
 @implementation ACMWebView
 
 #pragma mark PUBLIC INSTANCE METHODS
 #pragma mark Object Lifecycle
 
-- (instancetype) initWithFrame:(CGRect)frame {
-    if ( (self = [super initWithFrame:frame]) ) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView*)header footer:(UIView*)footer {
+- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView*)header {
     NSParameterAssert( [content isKindOfClass:[NSString class]] || [content isKindOfClass:[NSURL class]] );
     
     if ( (self = [self initWithFrame:frame]) ) {
         self->_webContent = content;
         self.header       = header;
-        self.footer       = footer;
     }
     
     return self;
@@ -49,12 +41,24 @@ NSString * const kACMWebViewFooterKey = @"footer";
         CGRect headerFrame = header.frame;
         header.frame = CGRectMake( 0.0f, 0.0f, CGRectGetWidth(headerFrame), CGRectGetHeight(headerFrame) );
     }
+}
+
+#pragma mark ADOPTED PROTOCOLS
+#pragma mark UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-    // layout footer
-    UIView *footer = self.footer;
-    if ( footer ) {
-        
-    }
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    
 }
 
 #pragma mark PUBLIC PROPERTIES

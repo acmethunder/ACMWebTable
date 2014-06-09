@@ -1,0 +1,96 @@
+<p><span id="fullscreen2" class="video description"><strong>iOS 8</strong> est <a title="iOS 7.8 bêta 1 est disponible" href="http://iphoneaddict.fr/post/news-125843-ios-8-disponible-version-beta" target="_blank">disponible en version bêta depuis plusieurs heures maintenant</a>, de nombreux utilisateurs ont pu installer la version bêta et faire un tour du propriétaire pour voir les nouveautés. Nous les avons regroupées, les voici ci-dessous.<br />
+</span></p>
+<p><div><img src="PPWPNews/125933/images/0.jpg" /></div><br />
+<strong>1.</strong> Nouveau fond d&rsquo;écran disponible.</p>
+<p><strong>2.</strong> Une nouvelle application fait son arrivée : Health. Ce <span id="fullscreen2" class="video description">gestionnaire de données de santé sera sans doute compatible avec la future <strong>iWatch</strong>. Craig Federighi n&rsquo;est pas resté longtemps sur le sujet, comme s&rsquo;il manquait quelque chose pour que la démonstration soit complète. On saura néanmoins que l’application possède son kit de développement et pourra donc s’interfacer avec les principaux bracelets connectés du marché.</span></p>
+<p><div><img src="PPWPNews/125933/images/1.jpg" /></div><br />
+<strong>3.</strong> Lors de la première utilisation de Spotlight, nous somme invités à tester les nouvelles fonctionnalités du système de recherche qui est désormais capable <span id="fullscreen2" class="video description">de chercher<strong> des points d’intérêts sur une carte, des adresses de restaurants, des places de cinema</strong>,.. le tout de façon transversale à iOS et aux informations contenues sur la toile.</span></p>
+<p><div><img src="PPWPNews/125933/images/2.jpg" /></div><br />
+<strong>4.</strong> Dans l&rsquo;application la météo, Apple abandonne Yahoo! au profit de &laquo;&nbsp;The Weather Channel&nbsp;&raquo; qui permet d&rsquo;avoir un peu plus d&rsquo;informations.</p>
+<p><div><img src="PPWPNews/125933/images/3.jpg" /></div></p>
+<p><strong>5.</strong> Le centre de notifications n&rsquo;a maintenant plus que deux onglets : &laquo;&nbsp;Aujourd’hui&nbsp;&raquo; et &laquo;&nbsp;Notifications&nbsp;&raquo;.</p>
+<p><div><img src="PPWPNews/125933/images/4.jpg" /></div></p>
+<p><strong>6.</strong> L’ordre de Widgets peut directement être paramétré dans le centre des notifications. Auparavant il fallait se rendre dans les réglages d&rsquo;iOS.</p>
+<p><div><img src="PPWPNews/125933/images/5.jpg" /></div></p>
+<p><strong>7.</strong> L&rsquo;application Messages obtient plusieurs nouveautés. <span id="fullscreen2" class="video description">Celle-ci passe à la vitesse supérieure et devient capable d’envoyer à la volée des messages audio ou vidéo que l’on peut enregistrer alors même qu’on se trouve encore à l’intérieur de l’appli. <span id="result_box" lang="fr"><span class="hps">Dans</span> <span class="hps">la page &laquo;&nbsp;Détails&nbsp;&raquo;</span>, nous pouvons voir <span class="hps">tous les médias</span> <span class="hps">échangés</span> <span class="hps">avec le contact. Il est également possible d&rsquo;envoyer sa position </span><span class="hps">ou activer</span> <span class="hps">le suivi</span> <span class="hps">de notre position</span> <span class="hps">pendant 1 heure</span> <span class="hps">ou jusqu&rsquo;à </span><span class="hps">la</span> <span class="hps">fin de la journée</span>. Pour finir, Apple a ajouté la possibilité de mettre les notifications en mode silencieuses pour un contact en particulier<span class="hps">.</span></span></span></p>
+<p><div><img src="PPWPNews/125933/images/6.jpg" /></div></p>
+<p><strong>8.</strong> L&rsquo;application Photos est capable de modifier la lumière et la couleur des photos pour en améliorer le résultat.</p>
+<p><div><img src="PPWPNews/125933/images/7.jpg" /></div></p>
+<p><strong>9.</strong> Deux nouveaux onglets font leur apparition sur l&rsquo;App Store : &laquo;&nbsp;Siri&nbsp;&raquo; et &laquo;&nbsp;Extraits&nbsp;&raquo; mais nous n&rsquo;y avons pas encore accès. Apple a aussi ajouté la possibilité de poster une vidéo à la place de la première image dans la description d&rsquo;une application.</p>
+<p><div><img src="PPWPNews/125933/images/8.jpg" /></div></p>
+<p><strong>10.</strong> <span id="result_box" lang="fr"><span class="hps">FaceTime</span> <span class="hps">a légèrement changé.</span> L<span class="hps">&lsquo;application</span> <span class="hps atn">dispose désormais d&rsquo;</span>un seul <span class="hps">écran où</span> <span class="hps">nous sommes invité à</span> <span class="hps">entrer le nom</span> <span class="hps">du contact</span> <span class="hps">que l&rsquo;on souhaite appeler.</span></span></p>
+<p><div><img src="PPWPNews/125933/images/9.jpg" /></div></p>
+<p><strong>11.</strong> Le multitâche affiche désormais les derniers contacts, avec possibilité de les appeler ou de leur laisser un message.</p>
+<p><div><img src="PPWPNews/125933/images/10.jpg" /></div></p>
+<p><strong>12.</strong> <span id="fullscreen2" class="video description">Les notifications deviennent interactives. Il est possible de répondre à un message reçu sans quitter l’application.</span></p>
+<p><div><img src="PPWPNews/125933/images/11.jpg" /></div></p>
+<p><strong>13.</strong> <span id="fullscreen2" class="video description"><strong>QuickType</strong> est un nouveau système de saisie au clavier virtuel qui anticipe littéralement sur les mots à écrire, et ce en fonction de votre propre style d’écriture.Le clavier semble véritablement performant et est déjà disponible en de nombreuses langues différentes. Sans nul doute l’un des gros points forts de cette 8ème mouture.</span></p>
+<p><div><img src="PPWPNews/125933/images/12.jpg" /></div></p>
+<p>&nbsp;</p>
+<p><strong>14.</strong> Possibilité d&rsquo;utiliser le clavier Braille</p>
+<p><strong>15.</strong> Possibilité d&rsquo;utiliser le mode privé de Safari dans uniquement un seul onglet.</p>
+<p><strong>16.</strong> Vitesse de prise de photo améliorée.</p>
+<p><strong>17.</strong> Siri peut maintenant être activé avec la voix en disant &laquo;&nbsp;Dis Siri&nbsp;&raquo; (option à activer dans les réglages).</p>
+<p><strong>18.</strong> <strong>iBooks</strong> sera pré-intégrée dans iOS 8 et offrira un mode nuit automatique.</p>
+<p><strong>19.</strong> Ajout d&rsquo;un retardateur dans l&rsquo;application Appareil photo (3 ou 10 secondes)</p>
+<p><div><img src="PPWPNews/125933/images/13.jpg" /></div></p>
+<p><strong>20.</strong> Mode rafale : l&rsquo;iPhone 5s est capable de prendre 11 photos pour que vous puissiez sélectionner la meilleure.</p>
+<p><strong>21.</strong> Des contrôles séparés pour le focus et l&rsquo;exposition dans l&rsquo;appareil Photo.</p>
+<p><strong>22.</strong> Ajout de nouvelles villes dans la fonction Flyover de l&rsquo;application Plans</p>
+<p><strong>23.</strong> Possibilité de prendre des photos panoramiques depuis l&rsquo;iPad. Avant cette fonctionnalité était réservée à l&rsquo;iPhone</p>
+<p><strong>24.</strong> L&rsquo;application <strong>Notes</strong> va prochainement proposer des fonctions d&rsquo;édition avancées.</p>
+<p><strong>25.</strong> Il est possible de <b>connaitre la consommation des Apps</b>, et leur impact sur l&rsquo;autonomie, permettant de quitter celles consommant trop d&rsquo;énergie.</p>
+<p><div><img src="PPWPNews/125933/images/14.jpg" /></div></p>
+<p><strong>26.</strong> Télécharger une application grâce à Siri.</p>
+<p><strong>27.</strong> 24 nouvelles langues pour la dictée vocale.</p>
+<p><strong>28.</strong> Touch ID peut être utilisé par les développeurs dans les applications.</p>
+<p><strong>29.</strong> Possibilité de mettre en pause un appel FaceTime pour répondre à un autre appel.</p>
+<p><strong>30.</strong> Le clavier emoji est activé par défaut sur iOS 8 avec un petit smiley à la place du globe. Pour afficher à nouveau le globe, il faudra ajouter une nouvelle langue.</p>
+<p><div><img src="PPWPNews/125933/images/15.jpg" /></div></p>
+<p><strong>31.</strong> Amélioration de la vie privée. Lorsqu’une application à accès aux données sensibles, un texte nous explique plus en détails en quoi cela consiste.</p>
+<p><strong>32.</strong> Augmentation de la vitesse d&rsquo;animation pour accéder au multitâche</p>
+<p><strong>33.</strong> Ajoute de la fonction <strong>Time Lapse</strong> à l’appareil photo</p>
+<p><div><img src="PPWPNews/125933/images/16.jpg" /></div></p>
+<p><strong>34.</strong> Contrôle parental, une nouvelle fonction permettant de partager photos, localisations, appareils mobiles, contenus musicaux, livres, vidéos avec les membres de sa famille.</p>
+<p><div><img src="PPWPNews/125933/images/17.jpg" /></div></p>
+<p><strong>35.</strong> Reconnaissance de la musiques via l&rsquo;intégration du moteur de Shazam avec Siri.</p>
+<p><strong>36.</strong> L&rsquo;ajout de DuckDuckGo dans le choix des moteurs de recherche intégrés à Safari.</p>
+<p><strong>37.</strong> On peut voir notre adresse reliée à iCloud dans l&rsquo;écran principal des réglages.</p>
+<p><strong>38.</strong> Plus d&rsquo;options dans l&rsquo;application Mails.</p>
+<p><strong>39.</strong> Sur l&rsquo;écran de verrouillage, il est possible d&rsquo;effectuer des actions sur les notifications (ici un iMessage).</p>
+<p><div><img src="PPWPNews/125933/images/18.jpg" /></div></p>
+<p><strong>40.</strong> Possibilité de mettre les photos en favoris pour les retrouver plus facilement (symbole cœur)</p>
+<p><strong>41.</strong> Une nouvelle icône fait son apparition lorsqu&rsquo;on visionne une vidéo. Habituellement on pouvait uniquement faire un double tap pour zoomer afin d&rsquo;agrandir la vidéo, maintenant il également possible de le faire via cette icône.</p>
+<p><div><img src="PPWPNews/125933/images/19.jpg" /></div><br />
+<strong>42.</strong> Nouveau moteur de recherche dans l&rsquo;application Photos.</p>
+<p><strong>43.</strong> Nouvelle icône pour l’enregistrement d&rsquo;images et possibilité de cliquer sur &laquo;&nbsp;Autres&nbsp;&raquo; pour réorganiser les icônes selon vos préférences.</p>
+<p><div><img src="PPWPNews/125933/images/20.jpg" /></div><br />
+<strong>44.</strong> Les développeurs peuvent intégrer un autre clavier dans l&rsquo;ensemble du système d&rsquo;exploitation.</p>
+<p><strong>45.</strong> Ajout de la possibilité d&rsquo;afficher des sites en mode <span class="hps">classique (non mobile) via</span> Safari.Pour cela, vous devez entrer sur le site internet que vous vous souhaitez, cliquez sur la barre d&rsquo;adresse <span class="hps">et</span> <span class="hps">faites glisser l&rsquo;écran vers le bas</span>:</p>
+<p><strong>46.</strong> Dans les réglages, Apple propose désormais de supprimer automatiquement les messages après une période donnée : 30 jours, un an ou jamais (par défaut avec iOS 7).</p>
+<p><strong>47.</strong> iOS 8 peut maintenant repérer où se trouve l’utilisateur pour lui proposer d’ouvrir rapidement une application depuis l’écran de verrouillage de son iPhone. S’il se rend à proximité ou dans un Starbucks par exemple, le logo de l’application Starbucks s’affichera en bas à gauche.</p>
+<p><div><img src="PPWPNews/125933/images/21.jpg" /></div></p>
+<p><strong>48.</strong> On peut configurer un message d’absence sur un compte Exchange</p>
+<p><strong>49.</strong> L’appareil sous iOS 8 peut rapporter, en plus de la position actuelle si l’appareil est en marche, sa dernière position connue s’il est hors ligne.</p>
+<p><strong>50.</strong> <del>Le fond dans l’application météo est dynamique.</del></p>
+<p><strong>51.</strong> lorsqu&rsquo;on reçoit une photo,  dans la conversation un appui long dessus et il y a un nouveau choix, &laquo;&nbsp;enregistrer&nbsp;&raquo;. <em> <em>(Merci Bozo)</em></em></p>
+<p><div><img src="PPWPNews/125933/images/22.jpg" /></div></p>
+<p><strong>52.</strong> Un Appui long sur l&rsquo;icône de l&rsquo;appareil Photo dans Messages ouvre un raccourci pour faire une Photo/Vidéo. <em>(Merci Bozo)</em></p>
+<p><div><img src="PPWPNews/125933/images/23.jpg" /></div></p>
+<p><strong>53.</strong> Une photo supprimée de l’appareil photo va dans la corbeille au lieu d&rsquo;être supprimée directement. Il faudra la supprimer de la corbeille pour qu&rsquo;elle disparaisse complétement</p>
+<p><strong>54.</strong> Dans l&rsquo;écran des signets de Safari, on trouve maintenant en plus les sites les plus visités.</p>
+<p><strong>55.</strong> Dans l&rsquo;application Mail, il possible maintenant possible de recevoir une notification Push pour une réponse à un email en particulier avec la fonction &laquo;&nbsp;Me prévenir&nbsp;&raquo;.</p>
+<p><div><img src="PPWPNews/125933/images/24.jpg" /></div></p>
+<p>&nbsp;</p>
+<p><strong>56.</strong> Dans accessibilité, on peut activer la visualisation d&rsquo;iOS en noir et blanc.</p>
+<p><strong>57. </strong>Grâce à <span id="result_box" lang="fr"><span title="54. Grazie all'HomeKit, iOS 8 potrà controllare luci, bloccare porte e finestre, regolare il riscaldamento e tanto altro&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;<br />
+&lt;p&gt;"><strong>HomeKit</strong>, iOS 8 peut être utilisé pour de la domotique (contrôle des lumières , verrouillage des portes et des fenêtres , chauffage,&#8230;).</span></span></p>
+<p><strong>58.</strong> Basculer d&rsquo;iOS à OS X lorsqu&rsquo;on on utilise une application compatible</p>
+<p><strong>59.</strong> Pouvoir ajouter des images dans l&rsquo;application Notes. <em>(Merci Bozo)</em></p>
+<p><div><img src="PPWPNews/125933/images/25.jpg" /></div></p>
+<p><strong>60</strong>. Plus d’options pour la modification des photos, dont la possibilité de modifier la rotation avec un certain degré. <em>(Merci Bozo)</em></p>
+<p><div><img src="PPWPNews/125933/images/26.jpg" /></div></p>
+<p><strong>61.</strong> Le numéro des semaines apparaissent dans le calendrier.</p>
+<p><strong>62.</strong> Safari est maintenant capable de scanner un code barre (lire : <a title="iOS 8 : Safari propose de scanner une carte bancaire" href="http://iphoneaddict.fr/post/news-126255-ios-8-safari-propose-scanner-carte-bancaire" rel="bookmark">iOS 8 : Safari propose de scanner une carte bancaire</a>). Auparavant seules des application dédiées étaient capable de le faire.</p>
+<p>D&rsquo;autres fonctions restent encore à découvrir. Si vous en remarquez une, n’hésitez pas à nous la faire parvenir par le biais des commentaires.</p>
+<p><strong>[Màj]</strong> ajout de nouveautés supplémentaires</p>

@@ -13,15 +13,16 @@
 #pragma mark Property Keys
 
 FOUNDATION_EXTERN NSString * const kACMWebViewHeaderKey;
-FOUNDATION_EXTERN NSString * const kACMWebViewFooterKey;
-//FOUNDATION_EXTERN NSString * const kACMWebViewKey;
+FOUNDATION_EXTERN NSString * const kACMWebViewPreviousViewKey;
+FOUNDATION_EXTERN NSString * const kACMWebViewNextViewKey;
 
-@interface ACMWebView : UIWebView
+@interface ACMWebView : UIWebView <UIWebViewDelegate>
 
-- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView*)header footer:(UIView*)footer;
+- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView*)header;
 
 @property (nonatomic,strong) UIView *header;
-@property (nonatomic,strong) UIView *footer;
+@property (nonatomic,strong) UIView *previousView;
+@property (nonatomic,strong) UIView *nextView;
 
 @property (nonatomic,strong) id webContent;
 

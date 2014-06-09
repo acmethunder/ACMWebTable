@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29AC4087194607B500FF9871 /* sample_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4086194607B500FF9871 /* sample_1.txt */; };
+		29AC4089194607DC00FF9871 /* sample_2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4088194607DC00FF9871 /* sample_2.txt */; };
+		29AC408B194607FA00FF9871 /* sample_3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408A194607FA00FF9871 /* sample_3.txt */; };
+		29AC408D1946081F00FF9871 /* sample_4 in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408C1946081F00FF9871 /* sample_4 */; };
+		29AC408F1946088F00FF9871 /* sample_5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408E1946088F00FF9871 /* sample_5.txt */; };
 		516433A6194381DA00FC3B6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516433A5194381DA00FC3B6A /* Foundation.framework */; };
 		516433A8194381DA00FC3B6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516433A7194381DA00FC3B6A /* CoreGraphics.framework */; };
 		516433AA194381DA00FC3B6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516433A9194381DA00FC3B6A /* UIKit.framework */; };
@@ -34,6 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29AC4086194607B500FF9871 /* sample_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_1.txt; sourceTree = "<group>"; };
+		29AC4088194607DC00FF9871 /* sample_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_2.txt; sourceTree = "<group>"; };
+		29AC408A194607FA00FF9871 /* sample_3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_3.txt; sourceTree = "<group>"; };
+		29AC408C1946081F00FF9871 /* sample_4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_4; sourceTree = "<group>"; };
+		29AC408E1946088F00FF9871 /* sample_5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_5.txt; sourceTree = "<group>"; };
 		516433A2194381DA00FC3B6A /* ACMWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACMWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		516433A5194381DA00FC3B6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		516433A7194381DA00FC3B6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,6 +139,11 @@
 				516433AE194381DA00FC3B6A /* InfoPlist.strings */,
 				516433B1194381DA00FC3B6A /* main.m */,
 				516433B3194381DA00FC3B6A /* ACMWebView-Prefix.pch */,
+				29AC4086194607B500FF9871 /* sample_1.txt */,
+				29AC4088194607DC00FF9871 /* sample_2.txt */,
+				29AC408A194607FA00FF9871 /* sample_3.txt */,
+				29AC408C1946081F00FF9871 /* sample_4 */,
+				29AC408E1946088F00FF9871 /* sample_5.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -239,6 +254,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				516433B0194381DA00FC3B6A /* InfoPlist.strings in Resources */,
+				29AC408F1946088F00FF9871 /* sample_5.txt in Resources */,
+				29AC4089194607DC00FF9871 /* sample_2.txt in Resources */,
+				29AC408B194607FA00FF9871 /* sample_3.txt in Resources */,
+				29AC408D1946081F00FF9871 /* sample_4 in Resources */,
+				29AC4087194607B500FF9871 /* sample_1.txt in Resources */,
 				516433B8194381DA00FC3B6A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +494,7 @@
 				516433D0194381DA00FC3B6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		516433D1194381DA00FC3B6A /* Build configuration list for PBXNativeTarget "ACMWebViewTests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +503,7 @@
 				516433D3194381DA00FC3B6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
