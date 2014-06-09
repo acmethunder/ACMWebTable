@@ -20,6 +20,7 @@
 		516433C9194381DA00FC3B6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 516433C7194381DA00FC3B6A /* InfoPlist.strings */; };
 		516433CB194381DA00FC3B6A /* ACMWebViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 516433CA194381DA00FC3B6A /* ACMWebViewTests.m */; };
 		516433D71943824000FC3B6A /* ACMWebTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 516433D61943824000FC3B6A /* ACMWebTable.m */; };
+		516433DA194387E300FC3B6A /* ACMWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 516433D9194387E300FC3B6A /* ACMWebView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		516433CA194381DA00FC3B6A /* ACMWebViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACMWebViewTests.m; sourceTree = "<group>"; };
 		516433D51943824000FC3B6A /* ACMWebTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMWebTable.h; sourceTree = "<group>"; };
 		516433D61943824000FC3B6A /* ACMWebTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMWebTable.m; sourceTree = "<group>"; };
+		516433D8194387E300FC3B6A /* ACMWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMWebView.h; sourceTree = "<group>"; };
+		516433D9194387E300FC3B6A /* ACMWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMWebView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +156,8 @@
 			children = (
 				516433D51943824000FC3B6A /* ACMWebTable.h */,
 				516433D61943824000FC3B6A /* ACMWebTable.m */,
+				516433D8194387E300FC3B6A /* ACMWebView.h */,
+				516433D9194387E300FC3B6A /* ACMWebView.m */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				516433B6194381DA00FC3B6A /* ACMAppDelegate.m in Sources */,
+				516433DA194387E300FC3B6A /* ACMWebView.m in Sources */,
 				516433B2194381DA00FC3B6A /* main.m in Sources */,
 				516433D71943824000FC3B6A /* ACMWebTable.m in Sources */,
 			);
@@ -374,8 +380,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ACMWebView/ACMWebView-Prefix.pch";
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				INFOPLIST_FILE = "ACMWebView/ACMWebView-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -387,8 +400,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ACMWebView/ACMWebView-Prefix.pch";
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				INFOPLIST_FILE = "ACMWebView/ACMWebView-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
