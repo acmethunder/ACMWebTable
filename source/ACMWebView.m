@@ -69,13 +69,16 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     UIView *header = self.header;
     if ( header ) {
         CGRect headerFrame = header.frame;
-        header.frame = CGRectMake( 0.0f, 0.0f, CGRectGetWidth(headerFrame), CGRectGetHeight(headerFrame) );
+        header.frame = CGRectMake( 0.0f, 0.0f, CGRectGetWidth(headerFrame), -CGRectGetHeight(headerFrame) );
     }
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(header.frame), 0.0f, 0.0f, 0.0f);
 }
 
 - (void) willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     self.scrollView.contentOffset = CGPointMake( 0.0f, CGRectGetHeight(self.header.frame) );
+//    self.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.header.frame), 0.0f, 0.0f, 0.0f);
 }
 
 #pragma mark Content Management
@@ -108,17 +111,13 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
         [self->_header removeFromSuperview];
     }
 
-    CGFloat topInset = 0.0f;
     if ( header ) {
         [self.scrollView addSubview:header];
-        topInset = CGRectGetHeight(header.frame);
     }
     
     self->_header = header;
     
     [self didChangeValueForKey:kACMWebViewHeaderKey];
-    
-    self.scrollView.contentInset = UIEdgeInsetsMake(topInset, 0.0f, 0.0f, 0.0f);
 }
 
 - (void) setWebContent:(id)webContent {

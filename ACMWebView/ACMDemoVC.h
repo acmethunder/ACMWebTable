@@ -6,8 +6,12 @@
 //  Copyright (c) 2014 acmethunder. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-@interface ACMDemoVC : UIViewController
+#import "ACMWebTable.h"
+
+@interface ACMDemoVC : UIViewController <ACMWebTableDataSource,ACMWebTableDelegate>
+
+
 
 @end
