@@ -134,6 +134,9 @@
     if ( scrollOffset > 60.0f ) {
         [self moveToNext];
     }
+    else if ( self.previousView && (scrollView.contentOffset.y < (60.0f * (-1))) ) {
+//        [self moveToprevious];
+    }
 }
 
 #pragma mark ACMWebTable + PRIVATE
@@ -188,18 +191,23 @@
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
         
-        [UIView animateWithDuration:0.25
+        [UIView animateWithDuration:0.5
                          animations:^{
+                             CGRect currentFrame = weakCurrent.frame;
+                             CGFloat currentHeight = CGRectGetHeight(currentFrame);
                              weakCurrent.frame = CGRectMake(
-                                                            0.0f,
-                                                            CGRectGetHeight(weakCurrent.frame) * (-1),
-                                                            CGRectGetWidth(weakCurrent.frame),
-                                                            CGRectGetHeight(weakCurrent.frame) );
+                                                            CGRectGetMinX(currentFrame),
+                                                            currentHeight * (-1),
+                                                            CGRectGetWidth(currentFrame),
+                                                            currentHeight );
+                             
+                             CGRect nextFrame = weakNext.frame;
+                             CGRect selfFrame = weakSelf.frame;
                              weakNext.frame = CGRectMake(
-                                                         CGRectGetMinX(weakSelf.frame),
+                                                         CGRectGetMinX(nextFrame),
                                                          0.0f,
-                                                         CGRectGetWidth(weakSelf.frame),\
-                                                         CGRectGetHeight(weakSelf.frame) );
+                                                         CGRectGetWidth(selfFrame),
+                                                         CGRectGetHeight(selfFrame) );
                          } completion:^(BOOL finished) {
                              if ( finished ) {
                                  [weakSelf.previousView removeFromSuperview];
@@ -207,13 +215,17 @@
                                  weakSelf.currentView = weakNext;
                                  weakSelf.currentIndex++;
                                  ACMWebView *nextNew = [weakSelf buildNext];
-                                 nextNew.delegate = weakSelf;
-                                 nextNew.scrollView.delegate = weakSelf;
-                                 nextNew.frame = CGRectMake(
-                                                            0.0f, CGRectGetHeight(weakSelf.currentView.frame),
-                                                            CGRectGetWidth(nextNew.frame),
-                                                            CGRectGetHeight(nextNew.frame) );
-                                 [weakSelf addSubview:nextNew];
+                                 
+                                 if ( nextNew ) {
+                                     CGRect nextFrame = nextNew.frame;
+                                     nextNew.frame = CGRectMake(
+                                                                CGRectGetMinX(nextFrame),
+                                                                CGRectGetHeight(weakSelf.frame),
+                                                                CGRectGetWidth(nextFrame),
+                                                                CGRectGetHeight(nextFrame) );
+                                     [weakSelf addSubview:nextNew];
+                                 }
+                                 
                                  weakSelf.nextView = nextNew;
                                  weakSelf.animating = NO;
                              }
@@ -222,7 +234,51 @@
 }
 
 - (void) moveToprevious {
-    
+//    if ( (! self.animating) && self.nextView ) {
+//        self.animating = YES;
+//        __weak typeof(self.previousView) weakPrevious = self.previousView;
+//        __weak typeof(self.currentView) weakCurrent   = self.currentView;
+//        __weak typeof(self) weakSelf                  = self;
+//        
+//        [UIView animateWithDuration:0.25
+//                         animations:^{
+//                             CGRect currentFrame = weakCurrent.frame;
+//                             weakCurrent.frame = CGRectMake(
+//                                                            CGRectGetMinX(currentFrame),
+//                                                            CGRectGetHeight(currentFrame),
+//                                                            CGRectGetWidth(currentFrame),
+//                                                            CGRectGetHeight(currentFrame) );
+//                             weakPrevious.frame = CGRectMake(
+//                                                             CGRectGetMinX(weakSelf.frame),
+//                                                             CGRectGetMinY(weakSelf.frame),
+//                                                             CGRectGetWidth(weakSelf.frame),
+//                                                             CGRectGetHeight(weakSelf.frame) );
+//                         } completion:^(BOOL finished) {
+//                             if ( finished ) {
+//                                 [weakSelf.nextView removeFromSuperview];
+//                                 weakSelf.nextView = weakCurrent;
+//                                 weakSelf.currentView = weakPrevious;
+//                                 weakSelf.currentIndex--;
+//                                 ACMWebView *previousNew = [weakSelf buildPrevious];
+//                                 
+//                                 if ( previousNew ) {
+//                                     previousNew.delegate = weakSelf;
+//                                     previousNew.scrollView.delegate = weakSelf;
+//                                     previousNew.frame = CGRectMake(
+//                                                                    CGRectGetMinX(weakSelf.frame),
+//                                                                    CGRectGetHeight(previousNew.frame),
+//                                                                    CGRectGetWidth(previousNew.frame),
+//                                                                    CGRectGetHeight(previousNew.frame) );
+//                                     [weakSelf addSubview:previousNew];
+//                                 }
+//                                 
+//                                 weakSelf.previousView = previousNew;
+//                                 weakSelf.animating = NO;
+//                                 
+//                                 [weakSelf scrollCurrentToTop];
+//                             }
+//                         }];
+//    }
 }
 
 - (void) scrollCurrentToTop {
@@ -242,6 +298,8 @@
         webView = [self.dataSource viewForIndex:(index + 1)];
         
         if ( webView ) {
+            webView.delegate = self;
+            webView.scrollView.delegate = self;
             [webView loadContent];
         }
     }
