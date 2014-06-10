@@ -11,6 +11,9 @@
 
 @interface ACMDemoVC ()
 
+- (void) hideNavbar;
+- (void) showNavBar;
+
 @property NSArray *items;
 @property (nonatomic,weak) ACMWebTable *tableView;
 
@@ -150,9 +153,10 @@
 
 - (void) acmTable:(ACMWebTable *)acmView didStartDragging:(ACMWebTableScrollDirection)direction {
     if ( direction == ACMWebTableScrollDirectionUp ) {
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [self hideNavbar];
     }
     else if ( direction == ACMWebTableScrollDirectionDown ) {
+        [self showNavBar];
     }
 }
 
@@ -162,6 +166,40 @@
 
 - (BOOL) acmtable:(ACMWebTable *)acmView shouldLoadRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navType {
     return YES;
+}
+
+#pragma mark ACMDemoVC + PRIVATE
+
+- (void) hideNavbar {
+    if ( ! self.navigationController.navigationBar.hidden ) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             CGRect screenFrame = [UIScreen mainScreen].bounds;
+                             
+                             UIDeviceOrientation orient = [UIDevice currentDevice].orientation;
+                             if ( (orient == UIDeviceOrientationPortrait) || (orient == UIDeviceOrientationPortraitUpsideDown) ) {
+                                 self.view.frame = screenFrame;
+                             }
+                             else {
+                                 CGRect frame = CGRectMake(0.0f, 0.0, CGRectGetHeight(screenFrame), CGRectGetWidth(screenFrame) );
+                                 self.view.frame = frame;
+                             }
+                         }];
+    }
+}
+
+- (void) showNavBar {
+    if ( self.navigationController.navigationBar.hidden ) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             CGRect screenFrame = [UIScreen mainScreen].bounds;
+                             self.view.frame = screenFrame;
+                         }];
+    }
 }
 
 @end

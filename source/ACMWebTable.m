@@ -21,7 +21,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 @interface ACMWebTable ()
 
 - (void) handleOrientationChange:(NSNotification*)notice;
-- (void) coldSetUp;
+- (void) coldSetUpScroll:(BOOL)shouldScroll;
 - (void) moveToNext;
 - (void) moveToPrevious;
 
@@ -99,7 +99,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         self.nextView = nextView;
     }
     
-    [self coldSetUp];
+    [self coldSetUpScroll:YES];
 }
 
 - (void) reloadWebTableAtIndex:(NSInteger)index {
@@ -108,6 +108,13 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         self.currentIndex = index;
         [self reloadWebTable];
     }
+}
+
+#pragma mark Properties
+
+- (void) setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [self coldSetUpScroll:NO];
 }
 
 #pragma mark ADOPTED PROTOCOLS
@@ -161,19 +168,16 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         else if ( scrollView.contentOffset.y < (self.currentView.headerContentHeight * (-1)) ) {
             [self moveToPrevious];
         }
-        else if ( self.currentView.footerView && (scrollView.contentOffset.y == CGRectGetMaxY(self.currentView.footerView.frame)) ) {
-            NSLog( @"Will show footer" );
-        }
     }
 }
 
 #pragma mark ACMWebTable + PRIVATE
 
 - (void) handleOrientationChange:(NSNotification*)notice {
-    [self coldSetUp];
+    [self coldSetUpScroll:NO];
 }
 
-- (void) coldSetUp {
+- (void) coldSetUpScroll:(BOOL)shouldScroll {
     ACMWebView *current = self.currentView;
     
     CGFloat width = CGRectGetWidth(current.frame);
@@ -217,7 +221,9 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         }
     }
     
-    [self scrollCurrentToTopAnimated:NO];
+    if ( shouldScroll ) {
+        [self scrollCurrentToTopAnimated:NO];
+    }
 }
 
 - (void) moveToNext {
