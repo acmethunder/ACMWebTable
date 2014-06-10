@@ -20,11 +20,12 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
 @interface ACMWebTable ()
 
+- (void) handleOrientationChange:(NSNotification*)notice;
 - (void) coldSetUp;
 - (void) moveToNext;
 - (void) moveToPrevious;
 
-- (void) scrollCurrentToTop;
+- (void) scrollCurrentToTopAnimated:(BOOL)animated;
 
 - (ACMWebView*) buildNext;
 - (ACMWebView*) buildPrevious;
@@ -44,6 +45,11 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     if ( (self = [super initWithFrame:frame]) ) {
         self->_currentIndex = 0;
         self->_animationTime = kACMWebTableDefaultAnimationTime;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handleOrientationChange:)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:nil];
     }
     
     return self;
@@ -56,6 +62,10 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     }
     
     return self;
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark PUBLIC INSTANCE METHODS
@@ -107,21 +117,16 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     return [self.delegate acmtable:self shouldLoadRequest:request navigationType:navigationType];
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-//    webView.userInteractionEnabled = NO;
-}
+- (void)webViewDidStartLoad:(UIWebView *)webView {}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if ( [webView isKindOfClass:[ACMWebView class]] ) {
         ACMWebView *tempWeb =  (ACMWebView*)webView;
         [tempWeb setNeedsLayout];
-//        CGFloat height = CGRectGetHeight(tempWeb.header.frame) + tempWeb.scrollView.contentSize.height;
-//        tempWeb.scrollView.contentSize = CGSizeMake(CGRectGetWidth(tempWeb.frame), height);
-//        tempWeb.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(tempWeb.header.frame), 0.0f, 0.0f, 0.0f);
     }
     
     if ( webView == self.currentView ) {
-        [self scrollCurrentToTop];
+        [self scrollCurrentToTopAnimated:YES];
     }
 }
 
@@ -147,7 +152,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog( @"Content Offset: %f", scrollView.contentOffset.y );
+    NSLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
     if ( scrollView == self.currentView.scrollView ) {
         CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
         if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
@@ -156,10 +161,17 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         else if ( scrollView.contentOffset.y < (self.currentView.headerContentHeight * (-1)) ) {
             [self moveToPrevious];
         }
+        else if ( self.currentView.footerView && (scrollView.contentOffset.y == CGRectGetMaxY(self.currentView.footerView.frame)) ) {
+            NSLog( @"Will show footer" );
+        }
     }
 }
 
 #pragma mark ACMWebTable + PRIVATE
+
+- (void) handleOrientationChange:(NSNotification*)notice {
+    [self coldSetUp];
+}
 
 - (void) coldSetUp {
     ACMWebView *current = self.currentView;
@@ -176,37 +188,46 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     
     ACMWebView *previous = self.previousView;
     
-    CGRect previousFrame = previous.frame;
-    CGRect frameNew = CGRectMake(
-                                 0.0f,
-                                 CGRectGetHeight(previousFrame) * (-1),
-                                 CGRectGetWidth(previous.frame),
-                                 CGRectGetHeight(previous.frame) );
-    previous.frame = frameNew;
-    
-    if ( ! previous.superview ) {
-        [self addSubview:previous];
+    if ( previous ) {
+        CGRect previousFrame = previous.frame;
+        CGRect frameNew = CGRectMake(
+                                     0.0f,
+                                     CGRectGetHeight(previousFrame) * (-1),
+                                     CGRectGetWidth(previous.frame),
+                                     CGRectGetHeight(previous.frame) );
+        previous.frame = frameNew;
+        
+        if ( ! previous.superview ) {
+            [self addSubview:previous];
+        }
     }
     
     ACMWebView *next = self.nextView;
-    CGRect nextFrame = next.frame;
-    CGRect nextFrameNew = CGRectMake(
-                                     0.0f,
-                                     CGRectGetHeight(current.frame),
-                                     CGRectGetWidth(nextFrame),
-                                     CGRectGetHeight(nextFrame) );
-    next.frame = nextFrameNew;
-    
-    if (! next.superview ) {
-        [self addSubview:next];
+    if ( next ) {
+        CGRect nextFrame = next.frame;
+        CGRect nextFrameNew = CGRectMake(
+                                         0.0f,
+                                         CGRectGetHeight(current.frame),
+                                         CGRectGetWidth(nextFrame),
+                                         CGRectGetHeight(nextFrame) );
+        next.frame = nextFrameNew;
+        
+        if (! next.superview ) {
+            [self addSubview:next];
+        }
     }
     
-    [self scrollCurrentToTop];
+    [self scrollCurrentToTopAnimated:NO];
 }
 
 - (void) moveToNext {
     if ( (! self.animating) && self.nextView ) {
         self.animating = YES;
+        
+        if ( [self.delegate respondsToSelector:@selector(acmTable:willDisplayView:)] ) {
+            [self.delegate acmTable:self willDisplayView:self.nextView];
+        }
+        
         __weak typeof(self.nextView) weakNext       = self.nextView;
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
@@ -249,7 +270,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
                                  weakSelf.nextView = nextNew;
                                  weakSelf.animating = NO;
                                  
-                                 [weakSelf scrollCurrentToTop];
+                                 [weakSelf scrollCurrentToTopAnimated:YES];
                              }
                          }];
     }
@@ -258,6 +279,11 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 - (void) moveToPrevious {
     if ( (! self.animating) && self.previousView ) {
         self.animating = YES;
+        
+        if ( [self.delegate respondsToSelector:@selector(acmTable:willDisplayView:)] ) {
+            [self.delegate acmTable:self willDisplayView:self.previousView];
+        }
+        
         __weak typeof(self.previousView) weakPrevious = self.previousView;
         __weak typeof(self.currentView) weakCurrent   = self.currentView;
         __weak typeof(self) weakSelf                  = self;
@@ -299,13 +325,13 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
                                  weakSelf.previousView = previousNew;
                                  weakSelf.animating = NO;
                                  
-                                 [weakSelf scrollCurrentToTop];
+                                 [weakSelf scrollCurrentToTopAnimated:YES];
                              }
                          }];
     }
 }
 
-- (void) scrollCurrentToTop {
+- (void) scrollCurrentToTopAnimated:(BOOL)animated {
     ACMWebView *webView = self.currentView;
     CGFloat offsetY = 0.0f;
     
@@ -317,7 +343,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     }
     
     CGPoint offset = CGPointMake( webView.scrollView.contentOffset.x, offsetY );
-    [webView.scrollView setContentOffset:offset animated:YES];
+    [webView.scrollView setContentOffset:offset animated:animated];
     
     if ( [self.delegate respondsToSelector:@selector(acmTable:didDisplayCurrentView:)] ) {
         [self.delegate acmTable:self didDisplayCurrentView:self.currentView];

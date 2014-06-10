@@ -71,11 +71,17 @@ FOUNDATION_EXTERN const NSTimeInterval kACMWebTableDefaultAnimationTime;
 
 #pragma mark ACMWebTableDelegate
 
+typedef NS_ENUM(NSInteger, ACMWebTableViewPosition){
+    ACMWebTableViewPositionNext,
+    ACMWebTableViewPositionPrevious
+};
+
 @protocol ACMWebTableDelegate <NSObject>
 
 @optional
 - (void) acmTable:(ACMWebTable*)acmView didStartDragging:(ACMWebTableScrollDirection)direction;
 - (void) acmTable:(ACMWebTable*)acmView didDisplayCurrentView:(ACMWebView*)webView;
+- (void) acmTable:(ACMWebTable*)acmView willDisplayView:(ACMWebView*)view;
 
 
 @required

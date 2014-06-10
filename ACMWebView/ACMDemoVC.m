@@ -53,7 +53,7 @@
     
     
     if ( self.navigationController ) {
-        self.navigationItem.title = @"ACM Demo VC";
+        self.navigationItem.title = @"ACM Web Table Demo VC";
     }
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -147,6 +147,18 @@
 }
 
 #pragma mark ACMWebTableDelegate
+
+- (void) acmTable:(ACMWebTable *)acmView didStartDragging:(ACMWebTableScrollDirection)direction {
+    if ( direction == ACMWebTableScrollDirectionUp ) {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+    else if ( direction == ACMWebTableScrollDirectionDown ) {
+    }
+}
+
+- (void) acmTable:(ACMWebTable *)acmView willDisplayView:(ACMWebView *)view {
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
 - (BOOL) acmtable:(ACMWebTable *)acmView shouldLoadRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navType {
     return YES;

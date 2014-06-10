@@ -49,6 +49,8 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     if ( (self = [self initWithFrame:frame]) ) {
         self->_webContent = content;
         self.titleView    = titleView;
+        
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     }
     
     return self;
@@ -101,16 +103,11 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     }
     
     CGFloat titleHeight = CGRectGetHeight(titleView.frame);
-//    self.scrollView.contentOffset = CGPointMake( 0.0f, titleHeight);
     self.scrollView.contentInset = UIEdgeInsetsMake(
                                                     titleHeight,
                                                     0.0f,
                                                     0.0f,
                                                     0.0f);
-}
-
-- (void) willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
 }
 
 #pragma mark Content Management
@@ -150,6 +147,7 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     }
 
     if ( titleView ) {
+        titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.scrollView addSubview:titleView];
     }
     
@@ -166,6 +164,7 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     }
     
     if ( headerView ) {
+        headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.scrollView addSubview:headerView];
     }
     
@@ -182,6 +181,7 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     }
     
     if ( footerView ) {
+        footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.scrollView addSubview:footerView];
     }
     
