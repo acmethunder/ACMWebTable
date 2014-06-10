@@ -25,6 +25,10 @@ typedef NS_ENUM(NSUInteger, ACMWebTableScrollDirection){
     ACMWebTableScrollDirectionDown
 };
 
+#pragma mark Floating Point
+
+FOUNDATION_EXTERN const NSTimeInterval kACMWebTableDefaultAnimationTime;
+
 #pragma mark -
 #pragma mark ACMWebTable
 #pragma mark -
@@ -36,6 +40,12 @@ typedef NS_ENUM(NSUInteger, ACMWebTableScrollDirection){
 
 - (void) reloadWebTable;
 - (void) reloadWebTableAtIndex:(NSInteger)index;
+
+/**
+ *  @brief
+ *      Animation duration (in seconds) when transitioning between web views. Defaults to 0.5.
+ */
+@property (nonatomic) NSTimeInterval animationTime;
 
 @property (nonatomic,strong) ACMWebView *currentView;
 @property (nonatomic,strong) ACMWebView *previousView;

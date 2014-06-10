@@ -40,7 +40,7 @@ FOUNDATION_EXTERN NSString * const kACMWebViewExceptionContentClassKey;
 
 #pragma mark PUBLIC PROPERTIES
 
-@property (nonatomic,strong) UIView *header;
+@property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UIView *previousView;
 @property (nonatomic,strong) UIView *nextView;
 

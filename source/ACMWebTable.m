@@ -9,13 +9,18 @@
 #import "ACMWebTable.h"
 #import "ACMWebView.h"
 
+#pragma mark PUBLIC CONSTANTS
+#pragma mark Floating Point
+
+const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
+
 #pragma mark ACMWebTable + private
 
 @interface ACMWebTable ()
 
 - (void) coldSetUp;
 - (void) moveToNext;
-- (void) moveToprevious;
+- (void) moveToPrevious;
 
 - (void) scrollCurrentToTop;
 
@@ -33,12 +38,19 @@
 
 @implementation ACMWebTable
 
+- (instancetype) initWithFrame:(CGRect)frame {
+    if ( (self = [super initWithFrame:frame]) ) {
+        self->_currentIndex = 0;
+        self->_animationTime = kACMWebTableDefaultAnimationTime;
+    }
+    
+    return self;
+}
+
 - (instancetype) initWithFrame:(CGRect)frame dataSource:(id<ACMWebTableDataSource>)dataSource delegate:(id<ACMWebTableDelegate>)delegate {
     if ( (self = [self initWithFrame:frame]) ) {
         self->_dataSource = dataSource;
         self->_delegate   = delegate;
-        
-        self->_currentIndex = 0;
     }
     
     return self;
@@ -72,8 +84,6 @@
     NSInteger count = [self.dataSource tableCount];
     if ( (currentIndex > -1) && (currentIndex < (count - 1)) ) {
         ACMWebView *nextView = [self buildNext];
-        nextView.delegate = self;
-        nextView.scrollView.delegate = self;
         self.nextView = nextView;
     }
     
@@ -82,7 +92,7 @@
 
 - (void) reloadWebTableAtIndex:(NSInteger)index {
     NSInteger count = [self.dataSource tableCount];
-    if ( (index >= count) && (index < count) ) {
+    if ( (index >= 0) && (index < count) ) {
         self.currentIndex = index;
         [self reloadWebTable];
     }
@@ -135,7 +145,7 @@
         [self moveToNext];
     }
     else if ( self.previousView && (scrollView.contentOffset.y < (60.0f * (-1))) ) {
-//        [self moveToprevious];
+        [self moveToPrevious];
     }
 }
 
@@ -191,7 +201,7 @@
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
         
-        [UIView animateWithDuration:0.5
+        [UIView animateWithDuration:self.animationTime
                          animations:^{
                              CGRect currentFrame = weakCurrent.frame;
                              CGFloat currentHeight = CGRectGetHeight(currentFrame);
@@ -233,52 +243,54 @@
     }
 }
 
-- (void) moveToprevious {
-//    if ( (! self.animating) && self.nextView ) {
-//        self.animating = YES;
-//        __weak typeof(self.previousView) weakPrevious = self.previousView;
-//        __weak typeof(self.currentView) weakCurrent   = self.currentView;
-//        __weak typeof(self) weakSelf                  = self;
-//        
-//        [UIView animateWithDuration:0.25
-//                         animations:^{
-//                             CGRect currentFrame = weakCurrent.frame;
-//                             weakCurrent.frame = CGRectMake(
-//                                                            CGRectGetMinX(currentFrame),
-//                                                            CGRectGetHeight(currentFrame),
-//                                                            CGRectGetWidth(currentFrame),
-//                                                            CGRectGetHeight(currentFrame) );
-//                             weakPrevious.frame = CGRectMake(
-//                                                             CGRectGetMinX(weakSelf.frame),
-//                                                             CGRectGetMinY(weakSelf.frame),
-//                                                             CGRectGetWidth(weakSelf.frame),
-//                                                             CGRectGetHeight(weakSelf.frame) );
-//                         } completion:^(BOOL finished) {
-//                             if ( finished ) {
-//                                 [weakSelf.nextView removeFromSuperview];
-//                                 weakSelf.nextView = weakCurrent;
-//                                 weakSelf.currentView = weakPrevious;
-//                                 weakSelf.currentIndex--;
-//                                 ACMWebView *previousNew = [weakSelf buildPrevious];
-//                                 
-//                                 if ( previousNew ) {
-//                                     previousNew.delegate = weakSelf;
-//                                     previousNew.scrollView.delegate = weakSelf;
-//                                     previousNew.frame = CGRectMake(
-//                                                                    CGRectGetMinX(weakSelf.frame),
-//                                                                    CGRectGetHeight(previousNew.frame),
-//                                                                    CGRectGetWidth(previousNew.frame),
-//                                                                    CGRectGetHeight(previousNew.frame) );
-//                                     [weakSelf addSubview:previousNew];
-//                                 }
-//                                 
-//                                 weakSelf.previousView = previousNew;
-//                                 weakSelf.animating = NO;
-//                                 
-//                                 [weakSelf scrollCurrentToTop];
-//                             }
-//                         }];
-//    }
+- (void) moveToPrevious {
+    if ( (! self.animating) && self.previousView ) {
+        self.animating = YES;
+        __weak typeof(self.previousView) weakPrevious = self.previousView;
+        __weak typeof(self.currentView) weakCurrent   = self.currentView;
+        __weak typeof(self) weakSelf                  = self;
+        
+        [UIView animateWithDuration:self.animationTime
+                         animations:^{
+                             CGRect currentFrame = weakCurrent.frame;
+                             CGFloat currentHeight = CGRectGetHeight(weakSelf.frame);
+                             weakCurrent.frame = CGRectMake(
+                                                            CGRectGetMinX(currentFrame),
+                                                            currentHeight,
+                                                            CGRectGetWidth(currentFrame),
+                                                            CGRectGetHeight(currentFrame) );
+
+                             CGRect previousFrame = weakPrevious.frame;
+                             weakPrevious.frame = CGRectMake(
+                                                             CGRectGetMinX(previousFrame),
+                                                             0.0f,
+                                                             CGRectGetWidth(previousFrame),
+                                                             CGRectGetHeight(previousFrame) );
+                         } completion:^(BOOL finished) {
+                             if ( finished ) {
+                                 [weakSelf.nextView removeFromSuperview];
+                                 weakSelf.nextView = weakCurrent;
+                                 weakSelf.currentView = weakPrevious;
+                                 weakSelf.currentIndex--;
+                                 ACMWebView *previousNew = [weakSelf buildPrevious];
+                                 
+                                 if ( previousNew ) {
+                                     CGRect previousFrame = previousNew.frame;
+                                     previousNew.frame = CGRectMake(
+                                                                    CGRectGetMinX(previousFrame),
+                                                                    CGRectGetHeight(weakSelf.frame) * (-1),
+                                                                    CGRectGetWidth(previousFrame),
+                                                                    CGRectGetHeight(previousFrame) );
+                                     [weakSelf addSubview:previousNew];
+                                 }
+                                 
+                                 weakSelf.previousView = previousNew;
+                                 weakSelf.animating = NO;
+                                 
+                                 [weakSelf scrollCurrentToTop];
+                             }
+                         }];
+    }
 }
 
 - (void) scrollCurrentToTop {
@@ -315,6 +327,8 @@
         webView = [self.dataSource viewForIndex:(index - 1)];
         
         if ( webView ) {
+            webView.delegate = self;
+            webView.scrollView.delegate = self;
             [webView loadContent];
         }
     }

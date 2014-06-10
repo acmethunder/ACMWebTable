@@ -48,7 +48,7 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     
     if ( (self = [self initWithFrame:frame]) ) {
         self->_webContent = content;
-        self.header       = header;
+        self.titleView       = header;
     }
     
     return self;
@@ -66,13 +66,13 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 
 - (void) layoutSubviews {
     // layout header
-    UIView *header = self.header;
+    UIView *header = self.titleView;
     if ( header ) {
         CGRect headerFrame = header.frame;
         header.frame = CGRectMake( 0.0f, 0.0f, CGRectGetWidth(headerFrame), -CGRectGetHeight(headerFrame) );
     }
     
-    self.scrollView.contentOffset = CGPointMake( 0.0f, CGRectGetHeight(self.header.frame) );
+    self.scrollView.contentOffset = CGPointMake( 0.0f, CGRectGetHeight(self.titleView.frame) );
     self.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(header.frame), 0.0f, 0.0f, 0.0f);
 }
 
@@ -103,7 +103,7 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 
 #pragma mark PUBLIC PROPERTIES
 
-- (void) setHeader:(UIView *)header {
+- (void) setTitleView:(UIView *)header {
     [self willChangeValueForKey:kACMWebViewHeaderKey];
     
     if ( self->_header ) {

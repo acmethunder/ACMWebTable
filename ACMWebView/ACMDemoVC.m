@@ -126,6 +126,9 @@
                                                      header:label
                                                     baseURL:baseURL];
     
+
+//    UIView *footer = [[UILabel alloc] initWithFrame:<#(CGRect)#>]
+    
     
     return webView;
 }
