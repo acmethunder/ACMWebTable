@@ -43,19 +43,19 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 #pragma mark PUBLIC INSTANCE METHODS
 #pragma mark Object Lifecycle
 
-- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView*)header {
+- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content titleView:(UIView*)titleView {
     NSParameterAssert( [content isKindOfClass:[NSString class]] || [content isKindOfClass:[NSURL class]] );
     
     if ( (self = [self initWithFrame:frame]) ) {
         self->_webContent = content;
-        self.titleView       = header;
+        self.titleView    = titleView;
     }
     
     return self;
 }
 
-- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView *)header baseURL:(NSURL*)baseURL {
-    if ( (self = [self initWithFrame:frame webContent:content header:header]) ) {
+- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content titleView:(UIView *)titleView baseURL:(NSURL*)baseURL {
+    if ( (self = [self initWithFrame:frame webContent:content titleView:titleView]) ) {
         self->_baseURL = baseURL;
     }
     

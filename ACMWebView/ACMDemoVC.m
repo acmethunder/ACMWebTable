@@ -123,7 +123,7 @@
     NSURL *baseURL = [[NSURL alloc] initWithString:docs];
     ACMWebView *webView = [[ACMWebView alloc] initWithFrame:self.view.frame
                                                  webContent:content
-                                                     header:label
+                                                  titleView:label
                                                     baseURL:baseURL];
     
 

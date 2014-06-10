@@ -31,8 +31,8 @@ FOUNDATION_EXTERN NSString * const kACMWebViewExceptionContentClassKey;
 #pragma mark PUBLIC INSTANCE METHODS
 #pragma mark Object Lifecycle
 
-- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView*)header;
-- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content header:(UIView *)header baseURL:(NSURL*)baseURL;
+- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content titleView:(UIView*)titleView;
+- (instancetype) initWithFrame:(CGRect)frame webContent:(id)content titleView:(UIView *)titleView baseURL:(NSURL*)baseURL;
 
 #pragma mark Content Management
 
