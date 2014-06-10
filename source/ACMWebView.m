@@ -136,6 +136,12 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 
 #pragma mark PUBLIC PROPERTIES
 
+- (CGFloat) headerContentHeight {
+    CGFloat height = CGRectGetHeight(self.headerView.frame) + CGRectGetHeight(self.titleView.frame);
+    
+    return height;
+}
+
 - (void) setTitleView:(UIView *)titleView {
     [self willChangeValueForKey:kACMWebTitleViewKey];
     

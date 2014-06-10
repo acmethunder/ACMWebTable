@@ -148,12 +148,14 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     NSLog( @"Content Offset: %f", scrollView.contentOffset.y );
-    CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
-    if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
-//        [self moveToNext];
-    }
-    else if ( self.previousView && (scrollView.contentOffset.y < (60.0f * (-1))) ) {
-//        [self moveToPrevious];
+    if ( scrollView == self.currentView.scrollView ) {
+        CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
+        if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
+            [self moveToNext];
+        }
+        else if ( scrollView.contentOffset.y < (self.currentView.headerContentHeight * (-1)) ) {
+            [self moveToPrevious];
+        }
     }
 }
 
@@ -246,6 +248,8 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
                                  
                                  weakSelf.nextView = nextNew;
                                  weakSelf.animating = NO;
+                                 
+                                 [weakSelf scrollCurrentToTop];
                              }
                          }];
     }

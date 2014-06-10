@@ -40,6 +40,8 @@ FOUNDATION_EXTERN NSString * const kACMWebViewExceptionContentClassKey;
 
 #pragma mark PUBLIC PROPERTIES
 
+@property (nonatomic,readonly) CGFloat headerContentHeight;
+
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UIView *headerView;
 @property (nonatomic,strong) UIView *footerView;
