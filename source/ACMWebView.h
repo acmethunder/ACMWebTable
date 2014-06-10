@@ -12,9 +12,9 @@
 #pragma mark CONSTANTS
 #pragma mark Property Keys
 
-FOUNDATION_EXTERN NSString * const kACMWebViewHeaderKey;
-FOUNDATION_EXTERN NSString * const kACMWebViewPreviousViewKey;
-FOUNDATION_EXTERN NSString * const kACMWebViewNextViewKey;
+FOUNDATION_EXTERN NSString * const kACMWebTitleViewKey;
+FOUNDATION_EXTERN NSString * const kACMWebViewHeaderViewKey;
+FOUNDATION_EXTERN NSString * const kACMWebViewFooterViewKey;
 
 #pragma mark Exceptions
 
@@ -41,8 +41,8 @@ FOUNDATION_EXTERN NSString * const kACMWebViewExceptionContentClassKey;
 #pragma mark PUBLIC PROPERTIES
 
 @property (nonatomic,strong) UIView *titleView;
-@property (nonatomic,strong) UIView *previousView;
-@property (nonatomic,strong) UIView *nextView;
+@property (nonatomic,strong) UIView *headerView;
+@property (nonatomic,strong) UIView *footerView;
 
 /**
  *  @property

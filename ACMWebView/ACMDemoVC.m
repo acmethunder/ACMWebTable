@@ -127,8 +127,21 @@
                                                     baseURL:baseURL];
     
 
-//    UIView *footer = [[UILabel alloc] initWithFrame:<#(CGRect)#>]
+    if ( index < (self.items.count - 1) ) {
+        UILabel *footer = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), 40.0f)];
+        footer.text = [[NSString alloc] initWithFormat:@"Footer \'%d\'", index];
+        footer.textColor = [UIColor whiteColor];
+        footer.backgroundColor = [UIColor orangeColor];
+        webView.footerView = footer;
+    }
     
+    if ( index > 0 ) {
+        UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), 40.0f)];
+        header.backgroundColor = [UIColor blueColor];
+        header.textColor = [UIColor whiteColor];
+        header.text = [[NSString alloc] initWithFormat:@"Header \'%d\'", index];
+        webView.headerView = header;
+    }
     
     return webView;
 }

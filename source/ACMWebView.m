@@ -12,9 +12,9 @@
 #pragma mark CONSTANTS
 #pragma mark Property Keys
 
-NSString * const kACMWebViewHeaderKey       = @"header";
-NSString * const kACMWebViewPreviousViewKey = @"previousView";
-NSString * const kACMWebViewNextViewKey     = @"nextView";
+NSString * const kACMWebTitleViewKey      = @"header";
+NSString * const kACMWebViewHeaderViewKey = @"previousView";
+NSString * const kACMWebViewFooterViewKey = @"nextView";
 
 #pragma mark Exception Names
 
@@ -66,14 +66,47 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 
 - (void) layoutSubviews {
     // layout header
-    UIView *header = self.titleView;
+    UIView *header = self.headerView;
     if ( header ) {
         CGRect headerFrame = header.frame;
-        header.frame = CGRectMake( 0.0f, 0.0f, CGRectGetWidth(headerFrame), -CGRectGetHeight(headerFrame) );
+        CGFloat headerHeight = CGRectGetHeight(headerFrame);
+        header.frame = CGRectMake(
+                                  CGRectGetMinX(headerFrame),
+                                  headerHeight * (-1),
+                                  CGRectGetWidth(headerFrame),
+                                  headerHeight * (-1) );
+        
     }
     
-    self.scrollView.contentOffset = CGPointMake( 0.0f, CGRectGetHeight(self.titleView.frame) );
-    self.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(header.frame), 0.0f, 0.0f, 0.0f);
+    // layout title
+    UIView *titleView = self.titleView;
+    if ( titleView ) {
+        CGRect titleFrame = titleView.frame;
+        titleView.frame = CGRectMake(
+                                     CGRectGetMinX(titleFrame),
+                                     0.0f,
+                                     CGRectGetWidth(titleFrame),
+                                     -CGRectGetHeight(titleFrame) );
+    }
+    
+    // layout footer
+    UIView *footer = self.footerView;
+    if ( footer ) {
+        CGRect footerFrame = footer.frame;
+        footer.frame = CGRectMake(
+                                  CGRectGetMinX(footerFrame),
+                                  self.scrollView.contentSize.height,
+                                  CGRectGetWidth(footerFrame),
+                                  CGRectGetHeight(footerFrame) );
+    }
+    
+    CGFloat titleHeight = CGRectGetHeight(titleView.frame);
+//    self.scrollView.contentOffset = CGPointMake( 0.0f, titleHeight);
+    self.scrollView.contentInset = UIEdgeInsetsMake(
+                                                    titleHeight,
+                                                    0.0f,
+                                                    0.0f,
+                                                    0.0f);
 }
 
 - (void) willMoveToSuperview:(UIView *)newSuperview {
@@ -103,20 +136,52 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 
 #pragma mark PUBLIC PROPERTIES
 
-- (void) setTitleView:(UIView *)header {
-    [self willChangeValueForKey:kACMWebViewHeaderKey];
+- (void) setTitleView:(UIView *)titleView {
+    [self willChangeValueForKey:kACMWebTitleViewKey];
     
-    if ( self->_header ) {
-        [self->_header removeFromSuperview];
+    if ( self->_titleView ) {
+        [self->_titleView removeFromSuperview];
     }
 
-    if ( header ) {
-        [self.scrollView addSubview:header];
+    if ( titleView ) {
+        [self.scrollView addSubview:titleView];
     }
     
-    self->_header = header;
+    self->_titleView = titleView;
     
-    [self didChangeValueForKey:kACMWebViewHeaderKey];
+    [self didChangeValueForKey:kACMWebTitleViewKey];
+}
+
+- (void) setHeaderView:(UIView *)headerView {
+    [self willChangeValueForKey:kACMWebViewHeaderViewKey];
+    
+    if ( self->_headerView ) {
+        [self->_headerView removeFromSuperview];
+    }
+    
+    if ( headerView ) {
+        [self.scrollView addSubview:headerView];
+    }
+    
+    self->_headerView = headerView;
+    
+    [self didChangeValueForKey:kACMWebViewHeaderViewKey];
+}
+
+- (void) setFooterView:(UIView *)footerView {
+    [self willChangeValueForKey:kACMWebViewFooterViewKey];
+    
+    if ( self->_footerView ) {
+        [self->_footerView removeFromSuperview];
+    }
+    
+    if ( footerView ) {
+        [self.scrollView addSubview:footerView];
+    }
+    
+    self->_footerView = footerView;
+
+    [self didChangeValueForKey:kACMWebViewFooterViewKey];
 }
 
 - (void) setWebContent:(id)webContent {

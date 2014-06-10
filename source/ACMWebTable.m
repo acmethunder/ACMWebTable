@@ -12,6 +12,8 @@
 #pragma mark PUBLIC CONSTANTS
 #pragma mark Floating Point
 
+const CGFloat kACMWebTableNoFooterOffset = 60.0f;
+
 const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
 #pragma mark ACMWebTable + private
@@ -111,10 +113,15 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if ( [webView isKindOfClass:[ACMWebView class]] ) {
-//        ACMWebView *tempWeb =  (ACMWebView*)webView;
+        ACMWebView *tempWeb =  (ACMWebView*)webView;
+        [tempWeb setNeedsLayout];
 //        CGFloat height = CGRectGetHeight(tempWeb.header.frame) + tempWeb.scrollView.contentSize.height;
 //        tempWeb.scrollView.contentSize = CGSizeMake(CGRectGetWidth(tempWeb.frame), height);
 //        tempWeb.scrollView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(tempWeb.header.frame), 0.0f, 0.0f, 0.0f);
+    }
+    
+    if ( webView == self.currentView ) {
+        [self scrollCurrentToTop];
     }
 }
 
@@ -140,12 +147,13 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog( @"Content Offset: %f", scrollView.contentOffset.y );
     CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
-    if ( scrollOffset > 60.0f ) {
-        [self moveToNext];
+    if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
+//        [self moveToNext];
     }
     else if ( self.previousView && (scrollView.contentOffset.y < (60.0f * (-1))) ) {
-        [self moveToPrevious];
+//        [self moveToPrevious];
     }
 }
 
@@ -294,7 +302,18 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 }
 
 - (void) scrollCurrentToTop {
-    self.currentView.scrollView.contentOffset = CGPointMake(0.0f, 0.0f);
+    ACMWebView *webView = self.currentView;
+    CGFloat offsetY = 0.0f;
+    
+    if ( webView.headerView ) {
+        offsetY = CGRectGetHeight(webView.headerView.frame) * (-1);
+    }
+    else if ( webView.titleView ) {
+        offsetY = CGRectGetHeight(webView.titleView.frame) * (-1);
+    }
+    
+    CGPoint offset = CGPointMake( webView.scrollView.contentOffset.x, offsetY );
+    [webView.scrollView setContentOffset:offset animated:YES];
     
     if ( [self.delegate respondsToSelector:@selector(acmTable:didDisplayCurrentView:)] ) {
         [self.delegate acmTable:self didDisplayCurrentView:self.currentView];
