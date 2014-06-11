@@ -30,7 +30,6 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 - (ACMWebView*) buildNext;
 - (ACMWebView*) buildPrevious;
 
-@property (nonatomic) NSInteger currentIndex;
 @property BOOL animating;
 
 @end
@@ -40,6 +39,9 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 #pragma mark -
 
 @implementation ACMWebTable
+
+#pragma mark PUBLIC INSTANCE METHODS
+#pragma mark Object Lifecycle
 
 - (instancetype) initWithFrame:(CGRect)frame {
     if ( (self = [super initWithFrame:frame]) ) {
@@ -68,7 +70,6 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark PUBLIC INSTANCE METHODS
 #pragma mark Table Management
 
 - (void) reloadWebTable {
@@ -138,6 +139,10 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    id<ACMWebTableDelegate> delegate = self.delegate;
+    if ( [delegate respondsToSelector:@selector(acmTable:failedToLoadRequest:)] ) {
+        [delegate acmTable:self failedToLoadRequest:error];
+    }
 }
 
 #pragma mark UIScrollViewDelegate
@@ -159,13 +164,13 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 }
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
+    ACMLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
     if ( scrollView == self.currentView.scrollView ) {
         CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
         if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
             [self moveToNext];
         }
-        else if ( scrollView.contentOffset.y < (self.currentView.headerContentHeight * (-1)) ) {
+        else if ( scrollView.contentOffset.y < (-self.currentView.headerContentHeight) ) {
             [self moveToPrevious];
         }
     }

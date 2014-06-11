@@ -113,7 +113,7 @@
     return self.items.count;
 }
 
-- (ACMWebView*) viewForIndex:(NSUInteger)index {
+- (ACMWebView*) viewForIndex:(NSInteger)index {
     NSString *headerText = [[NSString alloc] initWithFormat:@"Item \'%d\'", index];
     
     CGRect labelFrame = CGRectMake(0.0f, 0.0, CGRectGetWidth(self.view.frame), 60.0f);

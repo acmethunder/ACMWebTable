@@ -43,6 +43,14 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 #pragma mark PUBLIC INSTANCE METHODS
 #pragma mark Object Lifecycle
 
+- (instancetype) initWithFrame:(CGRect)frame {
+    if ( (self = [super initWithFrame:frame]) ) {
+        self->_menuOptions = ACMWebViewMenuOptionsAll;
+    }
+    
+    return self;
+}
+
 - (instancetype) initWithFrame:(CGRect)frame webContent:(id)content titleView:(UIView*)titleView {
     NSParameterAssert( [content isKindOfClass:[NSString class]] || [content isKindOfClass:[NSURL class]] );
     
@@ -74,9 +82,9 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
         CGFloat headerHeight = CGRectGetHeight(headerFrame);
         header.frame = CGRectMake(
                                   CGRectGetMinX(headerFrame),
-                                  headerHeight * (-1),
+                                  -headerHeight,
                                   CGRectGetWidth(headerFrame),
-                                  headerHeight * (-1) );
+                                  -headerHeight );
         
     }
     
@@ -108,6 +116,39 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
                                                     0.0f,
                                                     0.0f,
                                                     0.0f);
+}
+
+#pragma mark Validating Commends
+
+- (BOOL) canPerformAction:(SEL)action withSender:(id)sender {
+//    BOOL canGo = NO;
+//    ACMWebViewMenuOptions menuOp = self.menuOptions;
+//    
+//    if ( (menuOp & ACMWebViewMenuOptionsCopy) && (action == @selector(copy:)) ) {
+//        canGo = YES;
+//    }
+//    else if ( (menuOp & ACMWebViewMenuOptionsCut) && (action == @selector(cut:)) ) {
+//        canGo = YES;
+//    }
+//    else if ( (menuOp & ACMWebViewMenuOptionsPaste) && (action == @selector(paste:)) ) {
+//        canGo = YES;
+//    }
+//    else if ( (menuOp & ACMWebViewMenuOptionsDefine) && (action == @selector(definition)) ) {
+//        canGo = YES;
+//    }
+//    else {
+//        canGo = [super canPerformAction:action withSender:sender];
+//    }
+//    
+//    return canGo;
+    if (action == @selector(copy:) ||
+        action == @selector(paste:)||
+        action == @selector(cut:) ||
+        action == @selector(_define:))
+    {
+        return NO;
+    }
+    return [super canPerformAction:action withSender:sender];
 }
 
 #pragma mark Content Management

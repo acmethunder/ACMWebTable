@@ -45,7 +45,9 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/acmethunder/ACMWebTable.git" }
+  s.source       = {
+  :git => "https://github.com/acmethunder/ACMWebTable.git",
+  :commit => "2157845c6bd4ed0a8aebd94e54a62ee4df6194a9" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

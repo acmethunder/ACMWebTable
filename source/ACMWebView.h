@@ -10,6 +10,17 @@
 
 #pragma mark -
 #pragma mark CONSTANTS
+#pragma mark Options
+
+typedef NS_OPTIONS(NSInteger, ACMWebViewMenuOptions) {
+    ACMWebViewMenuOptionsNone  = 0,
+    ACMWebViewMenuOptionsCopy  = 1 << 0,
+    ACMWebViewMenuOptionsPaste = 1 << 1,
+    ACMWebViewMenuOptionsCut   = 1 << 2,
+    ACMWebViewMenuOptionsAll   = ( ACMWebViewMenuOptionsCopy | ACMWebViewMenuOptionsPaste | ACMWebViewMenuOptionsCut )
+};
+
+
 #pragma mark Property Keys
 
 FOUNDATION_EXTERN NSString * const kACMWebTitleViewKey;
@@ -40,6 +51,7 @@ FOUNDATION_EXTERN NSString * const kACMWebViewExceptionContentClassKey;
 
 #pragma mark PUBLIC PROPERTIES
 
+@property (nonatomic) ACMWebViewMenuOptions menuOptions;
 @property (nonatomic,readonly) CGFloat headerContentHeight;
 
 @property (nonatomic,strong) UIView *titleView;
@@ -58,6 +70,5 @@ FOUNDATION_EXTERN NSString * const kACMWebViewExceptionContentClassKey;
  */
 @property (nonatomic,strong) id webContent;
 @property (nonatomic,strong) NSURL *baseURL;
-
 
 @end

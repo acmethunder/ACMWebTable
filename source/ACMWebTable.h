@@ -8,6 +8,17 @@
 
 @import UIKit;
 
+#pragma mark -
+#pragma mark MACROS
+
+#ifndef ACMLog
+#if DEBUG
+#define ACMLog(fmt, ...) NSLog((@"%s [Line %d] -> " fmt),__PRETTY_FUNCTION__,__LINE__,##__VA_ARGS__)
+#else
+#define ACMLog(fmt, ...) {}
+#endif
+#endif
+
 #pragma mark FORWARDS
 
 @class ACMWebView;
@@ -43,6 +54,10 @@ FOUNDATION_EXTERN const NSTimeInterval kACMWebTableDefaultAnimationTime;
 - (void) reloadWebTable;
 - (void) reloadWebTableAtIndex:(NSInteger)index;
 
+#pragma mark PROPERTIES
+
+@property (nonatomic) NSInteger currentIndex;
+
 /**
  *  @brief
  *      Animation duration (in seconds) when transitioning between web views. Defaults to 0.5.
@@ -65,7 +80,7 @@ FOUNDATION_EXTERN const NSTimeInterval kACMWebTableDefaultAnimationTime;
 
 @required
 - (NSInteger) tableCount;
-- (ACMWebView*) viewForIndex:(NSUInteger)index;
+- (ACMWebView*) viewForIndex:(NSInteger)index;
 
 @end
 
@@ -82,6 +97,7 @@ typedef NS_ENUM(NSInteger, ACMWebTableViewPosition){
 - (void) acmTable:(ACMWebTable*)acmView didStartDragging:(ACMWebTableScrollDirection)direction;
 - (void) acmTable:(ACMWebTable*)acmView didDisplayCurrentView:(ACMWebView*)webView;
 - (void) acmTable:(ACMWebTable*)acmView willDisplayView:(ACMWebView*)view;
+- (void) acmTable:(ACMWebTable*)acmView failedToLoadRequest:(NSError*)error;
 
 
 @required
