@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
 
   s.source       = {
   :git => "https://github.com/acmethunder/ACMWebTable.git",
-  :tag => "v.0.0.1" }
+  :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
