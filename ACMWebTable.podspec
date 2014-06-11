@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   s.license      = "MIT"
   s.license      = { :type => "MIT", :file => "license" }
-  
+
   s.author             = { "Mike De Wolfe" => "dewolfe.michael@gmail.com" }
   s.social_media_url   = "http://twitter.com/mikedewolfe"
   s.homepage           = "https://github.com/acmethunder/ACMWebTable"
@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
 
   s.source       = {
   :git => "https://github.com/acmethunder/ACMWebTable.git",
-  :commit => "2157845c6bd4ed0a8aebd94e54a62ee4df6194a9" }
+  :tag => "v.0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
