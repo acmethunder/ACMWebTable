@@ -56,6 +56,13 @@ FOUNDATION_EXTERN NSString * const kACMWebViewTouchDownNotificationName;
 #pragma mark PUBLIC PROPERTIES
 
 @property (nonatomic) ACMWebViewMenuOptions menuOptions;
+
+/**
+ *  @property
+ *      headerContentHeight
+ *  @brief
+ *      Returns the height of 'titleView' plus 'headerView.'
+ */
 @property (nonatomic,readonly) CGFloat headerContentHeight;
 
 @property (nonatomic,strong) UIView *titleView;

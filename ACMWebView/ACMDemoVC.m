@@ -135,7 +135,8 @@ static CGFloat nav_bar_height;
     
 
     if ( index < (self.items.count - 1) ) {
-        CGRect footerFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), titleHeight);
+        CGFloat footerHeight = 60.0f;
+        CGRect footerFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), footerHeight);
         UILabel *footer = [[UILabel alloc] initWithFrame:footerFrame];
         footer.text = [[NSString alloc] initWithFormat:@"Footer \'%d\'", index];
         footer.textColor = [UIColor whiteColor];
@@ -144,7 +145,7 @@ static CGFloat nav_bar_height;
     }
     
     if ( index > 0 ) {
-        CGFloat headerHeight = ( index % 3 == 0 ? 40.0f : 85.0f );
+        CGFloat headerHeight = titleHeight;
         CGRect headerFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), headerHeight);
         UILabel *header = [[UILabel alloc] initWithFrame:headerFrame];
         header.backgroundColor = [UIColor blueColor];

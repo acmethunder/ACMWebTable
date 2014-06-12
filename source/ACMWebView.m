@@ -201,14 +201,6 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
     }
 }
 
-//#pragma mark Touch Events
-//
-//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kACMWebViewTouchDownNotificationName
-//                                                        object:nil];
-//    [super touchesBegan:touches withEvent:event];
-//}
-
 #pragma mark PUBLIC PROPERTIES
 
 - (CGFloat) headerContentHeight {
@@ -266,7 +258,6 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
     self->_footerView = footerView;
 
     [self didChangeValueForKey:kACMWebViewFooterViewKey];
-//    [self setNeedsLayout];
 }
 
 - (void) setWebContent:(id)webContent {

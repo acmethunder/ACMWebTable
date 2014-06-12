@@ -130,10 +130,11 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 - (void)webViewDidStartLoad:(UIWebView *)webView {}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if ( [webView isKindOfClass:[ACMWebView class]] ) {
-        ACMWebView *tempWeb =  (ACMWebView*)webView;
-        [tempWeb setNeedsLayout];
-    }
+//    if ( [webView isKindOfClass:[ACMWebView class]] ) {
+//        ACMWebView *tempWeb =  (ACMWebView*)webView;
+//        [tempWeb setNeedsLayout];
+//    }
+    [webView setNeedsLayout];
     
     if ( webView == self.currentView ) {
         [self scrollCurrentToTopAnimated:NO];
@@ -167,15 +168,6 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     ACMLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
-//    if ( scrollView == self.currentView.scrollView ) {
-//        CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
-//        if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
-//            [self moveToNext];
-//        }
-//        else if ( scrollView.contentOffset.y < (-self.currentView.headerContentHeight) ) {
-//            [self moveToPrevious];
-//        }
-//    }
 }
 
 - (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -254,13 +246,12 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
             [self.delegate acmTable:self willDisplayView:self.nextView];
         }
         
-        [self scrollWebViewToTop:self.nextView animated:FALSE];
+        ACMWebView *nextView = self.nextView;
+        [self scrollWebViewToTop:nextView animated:FALSE];
         
-        __weak typeof(self.nextView) weakNext       = self.nextView;
+        __weak typeof(nextView) weakNext            = nextView;
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
-        
-        [weakNext setNeedsLayout];
         
         [UIView animateWithDuration:self.animationTime
                          animations:^{
@@ -314,13 +305,12 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
             [self.delegate acmTable:self willDisplayView:self.previousView];
         }
         
-        [self scrollWebViewToTop:self.previousView animated:FALSE];
+        ACMWebView *previous = self.previousView;
+        [self scrollWebViewToTop:previous animated:FALSE];
         
-        __weak typeof(self.previousView) weakPrevious = self.previousView;
+        __weak typeof(previous) weakPrevious          = previous;
         __weak typeof(self.currentView) weakCurrent   = self.currentView;
         __weak typeof(self) weakSelf                  = self;
-        
-        [weakPrevious setNeedsLayout];
         
         [UIView animateWithDuration:self.animationTime
                          animations:^{
@@ -367,10 +357,6 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 }
 
 - (void) scrollCurrentToTopAnimated:(BOOL)animated {
-//    ACMWebView *webView = self.currentView;
-//    CGFloat offsetY = CGRectGetMinY(webView.titleView.frame);
-//    CGPoint offsetPoint = CGPointMake( webView.scrollView.contentOffset.x, offsetY );
-//    [webView.scrollView setContentOffset:offsetPoint animated:animated];
     [self scrollWebViewToTop:self.currentView animated:animated];
     if ( [self.delegate respondsToSelector:@selector(acmTable:didDisplayCurrentView:)] ) {
         [self.delegate acmTable:self didDisplayCurrentView:self.currentView];
