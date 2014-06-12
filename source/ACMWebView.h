@@ -33,11 +33,15 @@ FOUNDATION_EXTERN NSString * const kACMWebViewExceptionBadContentName;
 FOUNDATION_EXTERN NSString * const kACMWebViewExceptionBadContentReason;
 FOUNDATION_EXTERN NSString * const kACMWebViewExceptionContentClassKey;
 
+#pragma mark Notifications
+
+FOUNDATION_EXTERN NSString * const kACMWebViewTouchDownNotificationName;
+
 #pragma mark -
 #pragma mark ACMWebView
 #pragma mark -
 
-@interface ACMWebView : UIWebView <UIWebViewDelegate>
+@interface ACMWebView : UIWebView <UIGestureRecognizerDelegate>
 
 #pragma mark PUBLIC INSTANCE METHODS
 #pragma mark Object Lifecycle

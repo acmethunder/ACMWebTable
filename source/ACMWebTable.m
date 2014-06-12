@@ -136,7 +136,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     }
     
     if ( webView == self.currentView ) {
-        [self scrollCurrentToTopAnimated:YES];
+        [self scrollCurrentToTopAnimated:NO];
     }
 }
 
@@ -187,6 +187,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         else if ( scrollView.contentOffset.y < (-self.currentView.headerContentHeight) ) {
             [self moveToPrevious];
         }
+
     }
 }
 
@@ -259,6 +260,8 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
         
+        [weakNext setNeedsLayout];
+        
         [UIView animateWithDuration:self.animationTime
                          animations:^{
                              CGRect currentFrame = weakCurrent.frame;
@@ -316,6 +319,8 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         __weak typeof(self.previousView) weakPrevious = self.previousView;
         __weak typeof(self.currentView) weakCurrent   = self.currentView;
         __weak typeof(self) weakSelf                  = self;
+        
+        [weakPrevious setNeedsLayout];
         
         [UIView animateWithDuration:self.animationTime
                          animations:^{

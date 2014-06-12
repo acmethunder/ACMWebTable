@@ -22,6 +22,10 @@ NSString * const kACMWebViewExceptionBadContentName   = @"com.acmwebview.excepti
 NSString * const kACMWebViewExceptionBadContentReason = @"\'webContent\' must be either an instance of \'NSString,\' \'NSURL,\' or \'nil.\'";
 NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.exception.contentclass.key";
 
+#pragma mark Notifications
+
+NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdown.notification.name";
+
 #pragma mark -
 #pragma mark ACMWebView + Private
 
@@ -31,6 +35,9 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 
 - (void) loadStringContent;
 - (void) loadURLContent;
+
+#pragma mark Touch Events
+- (void) tapEvent:(UITapGestureRecognizer*)tap;
 
 @end
 
@@ -59,6 +66,12 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
         self.titleView    = titleView;
         
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(tapEvent:)];
+        tap.numberOfTapsRequired = 1;
+        tap.delegate = self;
+        [self addGestureRecognizer:tap];
     }
     
     return self;
@@ -188,6 +201,14 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     }
 }
 
+//#pragma mark Touch Events
+//
+//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kACMWebViewTouchDownNotificationName
+//                                                        object:nil];
+//    [super touchesBegan:touches withEvent:event];
+//}
+
 #pragma mark PUBLIC PROPERTIES
 
 - (CGFloat) headerContentHeight {
@@ -254,6 +275,12 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     }
 }
 
+#pragma mark ADOPTED PROTOCOLS
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return  YES;
+}
+
 #pragma mark PRIVATE INSTANCE METHODS
 
 #pragma mark Content
@@ -270,6 +297,12 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:content];
     [self loadRequest:request];
+}
+
+#pragma mark Touch Events
+- (void) tapEvent:(UITapGestureRecognizer*)tap {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kACMWebViewTouchDownNotificationName
+                                                        object:self];
 }
 
 
