@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, ACMWebTableScrollDirection){
 #pragma mark Floating Point
 
 FOUNDATION_EXTERN const CGFloat kACMWebTableNoFooterOffset;
+FOUNDATION_EXTERN const CGFloat kACMWebTableOffSCreenOffset;
 
 FOUNDATION_EXTERN const NSTimeInterval kACMWebTableDefaultAnimationTime;
 

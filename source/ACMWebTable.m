@@ -13,6 +13,7 @@
 #pragma mark Floating Point
 
 const CGFloat kACMWebTableNoFooterOffset = 60.0f;
+const CGFloat kACMWebTableOffSCreenOffset = 80.0f;
 
 const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
@@ -26,6 +27,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 - (void) moveToPrevious;
 
 - (void) scrollCurrentToTopAnimated:(BOOL)animated;
+- (void) scrollWebViewToTop:(ACMWebView*)webView animated:(BOOL)animated;
 
 - (ACMWebView*) buildNext;
 - (ACMWebView*) buildPrevious;
@@ -165,7 +167,19 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     ACMLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
-    if ( scrollView == self.currentView.scrollView ) {
+//    if ( scrollView == self.currentView.scrollView ) {
+//        CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
+//        if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
+//            [self moveToNext];
+//        }
+//        else if ( scrollView.contentOffset.y < (-self.currentView.headerContentHeight) ) {
+//            [self moveToPrevious];
+//        }
+//    }
+}
+
+- (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if ( decelerate && scrollView == self.currentView.scrollView ) {
         CGFloat scrollOffset = scrollView.contentOffset.y - scrollView.contentSize.height + CGRectGetHeight(scrollView.frame);
         if ( scrollOffset > MAX(CGRectGetHeight(self.currentView.footerView.frame), kACMWebTableNoFooterOffset) ) {
             [self moveToNext];
@@ -201,7 +215,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         CGRect previousFrame = previous.frame;
         CGRect frameNew = CGRectMake(
                                      0.0f,
-                                     CGRectGetHeight(previousFrame) * (-1),
+                                     CGRectGetHeight(previousFrame) * (-1) - kACMWebTableOffSCreenOffset,
                                      CGRectGetWidth(previous.frame),
                                      CGRectGetHeight(previous.frame) );
         previous.frame = frameNew;
@@ -216,7 +230,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
         CGRect nextFrame = next.frame;
         CGRect nextFrameNew = CGRectMake(
                                          0.0f,
-                                         CGRectGetHeight(current.frame),
+                                         CGRectGetHeight(current.frame) + kACMWebTableOffSCreenOffset,
                                          CGRectGetWidth(nextFrame),
                                          CGRectGetHeight(nextFrame) );
         next.frame = nextFrameNew;
@@ -239,6 +253,8 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
             [self.delegate acmTable:self willDisplayView:self.nextView];
         }
         
+        [self scrollWebViewToTop:self.nextView animated:FALSE];
+        
         __weak typeof(self.nextView) weakNext       = self.nextView;
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
@@ -249,7 +265,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
                              CGFloat currentHeight = CGRectGetHeight(currentFrame);
                              weakCurrent.frame = CGRectMake(
                                                             CGRectGetMinX(currentFrame),
-                                                            currentHeight * (-1),
+                                                            -currentHeight - kACMWebTableOffSCreenOffset,
                                                             CGRectGetWidth(currentFrame),
                                                             currentHeight );
                              
@@ -272,7 +288,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
                                      CGRect nextFrame = nextNew.frame;
                                      nextNew.frame = CGRectMake(
                                                                 CGRectGetMinX(nextFrame),
-                                                                CGRectGetHeight(weakSelf.frame),
+                                                                CGRectGetHeight(weakSelf.frame) + kACMWebTableOffSCreenOffset,
                                                                 CGRectGetWidth(nextFrame),
                                                                 CGRectGetHeight(nextFrame) );
                                      [weakSelf addSubview:nextNew];
@@ -295,6 +311,8 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
             [self.delegate acmTable:self willDisplayView:self.previousView];
         }
         
+        [self scrollWebViewToTop:self.previousView animated:FALSE];
+        
         __weak typeof(self.previousView) weakPrevious = self.previousView;
         __weak typeof(self.currentView) weakCurrent   = self.currentView;
         __weak typeof(self) weakSelf                  = self;
@@ -305,7 +323,7 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
                              CGFloat currentHeight = CGRectGetHeight(weakSelf.frame);
                              weakCurrent.frame = CGRectMake(
                                                             CGRectGetMinX(currentFrame),
-                                                            currentHeight,
+                                                            currentHeight + kACMWebTableOffSCreenOffset,
                                                             CGRectGetWidth(currentFrame),
                                                             CGRectGetHeight(currentFrame) );
 
@@ -325,9 +343,10 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
                                  
                                  if ( previousNew ) {
                                      CGRect previousFrame = previousNew.frame;
+                                     CGFloat previousY = -CGRectGetHeight(weakSelf.frame) - kACMWebTableOffSCreenOffset;
                                      previousNew.frame = CGRectMake(
                                                                     CGRectGetMinX(previousFrame),
-                                                                    CGRectGetHeight(weakSelf.frame) * (-1),
+                                                                    previousY,
                                                                     CGRectGetWidth(previousFrame),
                                                                     CGRectGetHeight(previousFrame) );
                                      [weakSelf addSubview:previousNew];
@@ -343,22 +362,20 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 }
 
 - (void) scrollCurrentToTopAnimated:(BOOL)animated {
-    ACMWebView *webView = self.currentView;
-    CGFloat offsetY = 0.0f;
-    
-    if ( webView.headerView ) {
-        offsetY = CGRectGetHeight(webView.headerView.frame) * (-1);
-    }
-    else if ( webView.titleView ) {
-        offsetY = CGRectGetHeight(webView.titleView.frame) * (-1);
-    }
-    
-    CGPoint offset = CGPointMake( webView.scrollView.contentOffset.x, offsetY );
-    [webView.scrollView setContentOffset:offset animated:animated];
-    
+//    ACMWebView *webView = self.currentView;
+//    CGFloat offsetY = CGRectGetMinY(webView.titleView.frame);
+//    CGPoint offsetPoint = CGPointMake( webView.scrollView.contentOffset.x, offsetY );
+//    [webView.scrollView setContentOffset:offsetPoint animated:animated];
+    [self scrollWebViewToTop:self.currentView animated:animated];
     if ( [self.delegate respondsToSelector:@selector(acmTable:didDisplayCurrentView:)] ) {
         [self.delegate acmTable:self didDisplayCurrentView:self.currentView];
     }
+}
+
+- (void) scrollWebViewToTop:(ACMWebView *)webView animated:(BOOL)animated {
+    CGFloat offsetY = CGRectGetMinY(webView.titleView.frame);
+    CGPoint offsetPoint = CGPointMake( webView.scrollView.contentOffset.x, offsetY );
+    [webView.scrollView setContentOffset:offsetPoint animated:animated];
 }
 
 - (ACMWebView*) buildNext {

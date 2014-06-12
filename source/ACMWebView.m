@@ -75,18 +75,18 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 #pragma mark Layout
 
 - (void) layoutSubviews {
-    // layout header
-    UIView *header = self.headerView;
-    if ( header ) {
-        CGRect headerFrame = header.frame;
-        CGFloat headerHeight = CGRectGetHeight(headerFrame);
-        header.frame = CGRectMake(
-                                  CGRectGetMinX(headerFrame),
-                                  -headerHeight,
-                                  CGRectGetWidth(headerFrame),
-                                  -headerHeight );
-        
-    }
+//    // layout header
+//    UIView *header = self.headerView;
+//    if ( header ) {
+//        CGRect headerFrame = header.frame;
+//        CGFloat headerHeight = CGRectGetHeight(headerFrame);
+//        header.frame = CGRectMake(
+//                                  CGRectGetMinX(headerFrame),
+//                                  -headerHeight,
+//                                  CGRectGetWidth(headerFrame),
+//                                  -headerHeight );
+//        
+//    }
     
     // layout title
     UIView *titleView = self.titleView;
@@ -97,6 +97,19 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
                                      0.0f,
                                      CGRectGetWidth(titleFrame),
                                      -CGRectGetHeight(titleFrame) );
+    }
+    
+    // layout header
+    UIView *header = self.headerView;
+    if ( header ) {
+        CGRect headerFrame = header.frame;
+        CGFloat headerHeight = CGRectGetHeight(headerFrame);
+        header.frame = CGRectMake(
+                                  CGRectGetMinX(headerFrame),
+                                  CGRectGetMinY(titleView.frame),
+                                  CGRectGetWidth(headerFrame),
+                                  -headerHeight );
+        
     }
     
     // layout footer
@@ -141,6 +154,8 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
 //    }
 //    
 //    return canGo;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     if (action == @selector(copy:) ||
         action == @selector(paste:)||
         action == @selector(cut:) ||
@@ -148,6 +163,7 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     {
         return NO;
     }
+#pragma clang diagnostic pop
     return [super canPerformAction:action withSender:sender];
 }
 
@@ -229,6 +245,7 @@ NSString * const kACMWebViewExceptionContentClassKey  = @"com.acmwebview.excepti
     self->_footerView = footerView;
 
     [self didChangeValueForKey:kACMWebViewFooterViewKey];
+//    [self setNeedsLayout];
 }
 
 - (void) setWebContent:(id)webContent {

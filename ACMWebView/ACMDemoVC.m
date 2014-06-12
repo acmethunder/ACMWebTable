@@ -9,6 +9,8 @@
 #import "ACMDemoVC.h"
 #import "ACMWebView.h"
 
+static CGFloat nav_bar_height;
+
 @interface ACMDemoVC ()
 
 - (void) hideNavbar;
@@ -50,9 +52,10 @@
     self.tableView = webTable;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
+    
+    nav_bar_height = CGRectGetHeight(self.navigationController.navigationBar.frame);
     
     
     if ( self.navigationController ) {
@@ -116,7 +119,8 @@
 - (ACMWebView*) viewForIndex:(NSInteger)index {
     NSString *headerText = [[NSString alloc] initWithFormat:@"Item \'%d\'", index];
     
-    CGRect labelFrame = CGRectMake(0.0f, 0.0, CGRectGetWidth(self.view.frame), 60.0f);
+    CGFloat titleHeight = ( index % 2 == 0 ? 60.0f : 100.0f );
+    CGRect labelFrame = CGRectMake(0.0f, 0.0, CGRectGetWidth(self.view.frame), titleHeight);
     UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
     label.text = headerText;
     label.backgroundColor = [UIColor greenColor];
@@ -131,7 +135,8 @@
     
 
     if ( index < (self.items.count - 1) ) {
-        UILabel *footer = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), 40.0f)];
+        CGRect footerFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), titleHeight);
+        UILabel *footer = [[UILabel alloc] initWithFrame:footerFrame];
         footer.text = [[NSString alloc] initWithFormat:@"Footer \'%d\'", index];
         footer.textColor = [UIColor whiteColor];
         footer.backgroundColor = [UIColor orangeColor];
@@ -139,7 +144,9 @@
     }
     
     if ( index > 0 ) {
-        UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), 40.0f)];
+        CGFloat headerHeight = ( index % 3 == 0 ? 40.0f : 85.0f );
+        CGRect headerFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), headerHeight);
+        UILabel *header = [[UILabel alloc] initWithFrame:headerFrame];
         header.backgroundColor = [UIColor blueColor];
         header.textColor = [UIColor whiteColor];
         header.text = [[NSString alloc] initWithFormat:@"Header \'%d\'", index];
@@ -153,10 +160,10 @@
 
 - (void) acmTable:(ACMWebTable *)acmView didStartDragging:(ACMWebTableScrollDirection)direction {
     if ( direction == ACMWebTableScrollDirectionUp ) {
-        [self hideNavbar];
+//        [self hideNavbar];
     }
     else if ( direction == ACMWebTableScrollDirectionDown ) {
-        [self showNavBar];
+//        [self showNavBar];
     }
 }
 
@@ -172,8 +179,6 @@
 
 - (void) hideNavbar {
     if ( ! self.navigationController.navigationBar.hidden ) {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
         [UIView animateWithDuration:0.5
                          animations:^{
                              CGRect screenFrame = [UIScreen mainScreen].bounds;
@@ -183,8 +188,18 @@
                                  self.view.frame = screenFrame;
                              }
                              else {
-                                 CGRect frame = CGRectMake(0.0f, 0.0, CGRectGetHeight(screenFrame), CGRectGetWidth(screenFrame) );
+                                 CGRect frame = CGRectMake(
+                                                           0.0f,
+                                                           0.0,
+                                                           CGRectGetHeight(screenFrame),
+                                                           CGRectGetWidth(screenFrame) );
                                  self.view.frame = frame;
+                             }
+                         } completion:^(BOOL finished) {
+                             if ( finished ) {
+                                 [[UIApplication sharedApplication] setStatusBarHidden:YES
+                                                                         withAnimation:UIStatusBarAnimationSlide];
+                                 [self.navigationController setNavigationBarHidden:YES animated:YES];
                              }
                          }];
     }
@@ -192,12 +207,20 @@
 
 - (void) showNavBar {
     if ( self.navigationController.navigationBar.hidden ) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
         [UIView animateWithDuration:0.5
                          animations:^{
                              CGRect screenFrame = [UIScreen mainScreen].bounds;
-                             self.view.frame = screenFrame;
+                             self.view.frame = CGRectMake(
+                                                          CGRectGetMinX(self.view.frame),
+                                                          CGRectGetMinY(self.view.frame),
+                                                          CGRectGetWidth(screenFrame),
+                                                          CGRectGetHeight(screenFrame) - nav_bar_height );
+                         } completion:^(BOOL finished) {
+                             if ( finished ) {
+                                 [[UIApplication sharedApplication] setStatusBarHidden:FALSE
+                                                                         withAnimation:UIStatusBarAnimationSlide];
+                                 [self.navigationController setNavigationBarHidden:FALSE animated:TRUE];
+                             }
                          }];
     }
 }
