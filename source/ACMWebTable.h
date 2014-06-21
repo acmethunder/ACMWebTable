@@ -99,6 +99,7 @@ typedef NS_ENUM(NSInteger, ACMWebTableViewPosition){
 - (void) acmTable:(ACMWebTable*)acmView didDisplayCurrentView:(ACMWebView*)webView;
 - (void) acmTable:(ACMWebTable*)acmView willDisplayView:(ACMWebView*)view;
 - (void) acmTable:(ACMWebTable*)acmView failedToLoadRequest:(NSError*)error;
+- (void) acmTable:(ACMWebTable*)acmView webViewDidFinishLoad:(ACMWebView*)view;
 
 
 @required
