@@ -139,6 +139,10 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
     if ( webView == self.currentView ) {
         [self scrollCurrentToTopAnimated:NO];
     }
+    
+    if ( [self.delegate respondsToSelector:@selector(acmTable:webViewDidFinishLoad:)] ) {
+        [self.delegate acmTable:self webViewDidFinishLoad:self.currentView];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
