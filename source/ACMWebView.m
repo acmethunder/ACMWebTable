@@ -260,12 +260,6 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
     [self didChangeValueForKey:kACMWebViewFooterViewKey];
 }
 
-//- (void) setWebContent:(id)webContent {
-//    if ( (! webContent) || [webContent isKindOfClass:[NSString class]] || [webContent isKindOfClass:[NSURL class]] ) {
-//        self->_webContent = webContent;
-//    }
-//}
-
 #pragma mark ADOPTED PROTOCOLS
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
