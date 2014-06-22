@@ -117,7 +117,8 @@ static CGFloat nav_bar_height;
 }
 
 - (ACMWebView*) viewForIndex:(NSInteger)index {
-    NSString *headerText = [[NSString alloc] initWithFormat:@"Item \'%d\'", index];
+    // usng a long, sonce this is just a demo and I want the CI builds to pass
+    NSString *headerText = [[NSString alloc] initWithFormat:@"Item \'%ld\'", (long)index];
     
     CGFloat titleHeight = ( index % 2 == 0 ? 60.0f : 100.0f );
     CGRect labelFrame = CGRectMake(0.0f, 0.0, CGRectGetWidth(self.view.frame), titleHeight);
@@ -138,7 +139,8 @@ static CGFloat nav_bar_height;
         CGFloat footerHeight = 60.0f;
         CGRect footerFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), footerHeight);
         UILabel *footer = [[UILabel alloc] initWithFrame:footerFrame];
-        footer.text = [[NSString alloc] initWithFormat:@"Footer \'%d\'", index];
+        // usng a long, sonce this is just a demo and I want the CI builds to pass
+        footer.text = [[NSString alloc] initWithFormat:@"Footer \'%ld\'", (long)index];
         footer.textColor = [UIColor whiteColor];
         footer.backgroundColor = [UIColor orangeColor];
         webView.footerView = footer;
@@ -150,7 +152,8 @@ static CGFloat nav_bar_height;
         UILabel *header = [[UILabel alloc] initWithFrame:headerFrame];
         header.backgroundColor = [UIColor blueColor];
         header.textColor = [UIColor whiteColor];
-        header.text = [[NSString alloc] initWithFormat:@"Header \'%d\'", index];
+        // usng a long, sonce this is just a demo and I want the CI builds to pass
+        header.text = [[NSString alloc] initWithFormat:@"Header \'%ld\'", (long)index];
         webView.headerView = header;
     }
     

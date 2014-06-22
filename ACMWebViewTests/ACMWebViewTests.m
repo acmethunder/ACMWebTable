@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 acmethunder. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 
 #import "ACMWebView.h"
 
