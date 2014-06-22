@@ -1,3 +1,7 @@
 language: objective-c
+
+before_script:
+    - gem install xcpretty
+
 script:
-    - xcodebuild test -project ACMWebView.xcodeproj -scheme ACMWebViewTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    - xcodebuild test -project ACMWebView.xcodeproj -scheme ACMWebViewTests -sdk iphonesimulator test | xcpretty -c ; test ${PIPESTATUS[0]} -eq 0
