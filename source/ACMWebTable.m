@@ -154,24 +154,17 @@ const NSTimeInterval kACMWebTableDefaultAnimationTime = 0.5;
 
 #pragma mark UIScrollViewDelegate
 
-- (void )scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    CGPoint point = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
-
-    ACMWebTableScrollDirection direction = ACMWebTableScrollDirectionUnknown;
-    if ( point.y <= 0.0f ) {
-        direction = ACMWebTableScrollDirectionUp;
-    }
-    else if ( point.y > 0.0f ) {
-        direction = ACMWebTableScrollDirectionDown;
-    }
-    
-    if ( [self.delegate respondsToSelector:@selector(acmTable:didStartDragging:)] ) {
-        [self.delegate acmTable:self didStartDragging:direction];
-    }
-}
-
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     ACMLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
+    ACMWebTableScrollDirection direction = ACMWebTableScrollDirectionUnknown;
+    if( [scrollView.panGestureRecognizer translationInView:self.currentView].y  < 0.0f ) {
+        direction = ACMWebTableScrollDirectionUp;
+    } else if ([scrollView.panGestureRecognizer translationInView:self.currentView].y  > 0.0f  ) {
+        direction = ACMWebTableScrollDirectionDown;
+    }
+    if ( [self.delegate respondsToSelector:@selector(acmTable:didScroll:)] ) {
+        [self.delegate acmTable:self didScroll:direction];
+    }
 }
 
 - (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
