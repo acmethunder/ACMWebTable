@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, ACMWebTableViewPosition){
 @protocol ACMWebTableDelegate <NSObject>
 
 @optional
-- (void) acmTable:(ACMWebTable*)acmView didStartDragging:(ACMWebTableScrollDirection)direction;
+- (void) acmTable:(ACMWebTable*)acmView didScroll:(ACMWebTableScrollDirection)direction;
 - (void) acmTable:(ACMWebTable*)acmView didDisplayCurrentView:(ACMWebView*)webView;
 - (void) acmTable:(ACMWebTable*)acmView willDisplayView:(ACMWebView*)view;
 - (void) acmTable:(ACMWebTable*)acmView failedToLoadRequest:(NSError*)error;
