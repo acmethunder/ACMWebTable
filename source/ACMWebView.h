@@ -10,17 +10,6 @@
 
 #pragma mark -
 #pragma mark CONSTANTS
-#pragma mark Options
-
-typedef NS_OPTIONS(NSInteger, ACMWebViewMenuOptions) {
-    ACMWebViewMenuOptionsNone  = 0,
-    ACMWebViewMenuOptionsCopy  = 1 << 0,
-    ACMWebViewMenuOptionsPaste = 1 << 1,
-    ACMWebViewMenuOptionsCut   = 1 << 2,
-    ACMWebViewMenuOptionsAll   = ( ACMWebViewMenuOptionsCopy | ACMWebViewMenuOptionsPaste | ACMWebViewMenuOptionsCut )
-};
-
-
 #pragma mark Property Keys
 
 FOUNDATION_EXTERN NSString * const kACMWebTitleViewKey;
@@ -51,11 +40,19 @@ FOUNDATION_EXTERN NSString * const kACMWebViewTouchDownNotificationName;
 
 #pragma mark Content Management
 
+/**
+ *  @method
+ *      loadContent
+ *  @brief
+ *      Loads the receiver's HTML content.
+ *  @discussion
+ *      See 'webContent' for for supported types.
+ *  @throw
+ *      'kACMWebViewExceptionsBadContentReason' if 'webContent' is not one of the supported types.
+ */
 - (void) loadContent;
 
 #pragma mark PUBLIC PROPERTIES
-
-@property (nonatomic) ACMWebViewMenuOptions menuOptions;
 
 /**
  *  @property

@@ -55,13 +55,18 @@ static const CGFloat kACMScreenHeight = 504.0f;
                                                        webContent:webContent
                                                         titleView:nil
                                                           baseURL:baseURL], @"" );
-    XCTAssertNoThrow( [webView loadContent], @"" );
+}
+
+- (void) testThrowsErrorOnBadContent {
+    ACMWebView *webView = nil;
+    CGRect webFrame = CGRectMake( 0.0f, 0.0f, kACMScreenWidth, kACMScreenHeight );
+    XCTAssertNoThrow( webView = [[ACMWebView alloc] initWithFrame:webFrame
+                                                       webContent:nil
+                                                        titleView:nil
+                                                          baseURL:nil], @"" );
     
-    webView.webContent = nil;
-    XCTAssertNoThrow( [webView loadContent], @"" );
-    
-    webView.webContent = [NSNull null];
-    XCTAssertEqualObjects( webView.webContent, [NSNull null], @"" );
+    NSNull *webContent = [NSNull null];
+    webView.webContent = webContent;
     XCTAssertThrows( [webView loadContent], @"" );
 }
 

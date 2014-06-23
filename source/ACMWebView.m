@@ -50,16 +50,8 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
 #pragma mark PUBLIC INSTANCE METHODS
 #pragma mark Object Lifecycle
 
-- (instancetype) initWithFrame:(CGRect)frame {
-    if ( (self = [super initWithFrame:frame]) ) {
-        self->_menuOptions = ACMWebViewMenuOptionsAll;
-    }
-    
-    return self;
-}
-
 - (instancetype) initWithFrame:(CGRect)frame webContent:(id)content titleView:(UIView*)titleView {
-    NSParameterAssert( [content isKindOfClass:[NSString class]] || [content isKindOfClass:[NSURL class]] );
+    NSParameterAssert( (! content) || [content isKindOfClass:[NSString class]] || [content isKindOfClass:[NSURL class]] );
     
     if ( (self = [self initWithFrame:frame]) ) {
         self->_webContent = content;
@@ -88,19 +80,6 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
 #pragma mark Layout
 
 - (void) layoutSubviews {
-//    // layout header
-//    UIView *header = self.headerView;
-//    if ( header ) {
-//        CGRect headerFrame = header.frame;
-//        CGFloat headerHeight = CGRectGetHeight(headerFrame);
-//        header.frame = CGRectMake(
-//                                  CGRectGetMinX(headerFrame),
-//                                  -headerHeight,
-//                                  CGRectGetWidth(headerFrame),
-//                                  -headerHeight );
-//        
-//    }
-    
     // layout title
     UIView *titleView = self.titleView;
     if ( titleView ) {
@@ -146,27 +125,12 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
 
 #pragma mark Validating Commends
 
+/**
+ *  @discussion
+ *      This implementation will be removed in future versions. Sub classes should implement this as
+ *      needed.
+ */
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender {
-//    BOOL canGo = NO;
-//    ACMWebViewMenuOptions menuOp = self.menuOptions;
-//    
-//    if ( (menuOp & ACMWebViewMenuOptionsCopy) && (action == @selector(copy:)) ) {
-//        canGo = YES;
-//    }
-//    else if ( (menuOp & ACMWebViewMenuOptionsCut) && (action == @selector(cut:)) ) {
-//        canGo = YES;
-//    }
-//    else if ( (menuOp & ACMWebViewMenuOptionsPaste) && (action == @selector(paste:)) ) {
-//        canGo = YES;
-//    }
-//    else if ( (menuOp & ACMWebViewMenuOptionsDefine) && (action == @selector(definition)) ) {
-//        canGo = YES;
-//    }
-//    else {
-//        canGo = [super canPerformAction:action withSender:sender];
-//    }
-//    
-//    return canGo;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     if (action == @selector(copy:) ||
