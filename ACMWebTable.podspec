@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ACMWebTable"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "Provides some UITableVIew like behaviour for managing multiple to UIWebViews."
 
   s.license      = "MIT"
@@ -46,8 +46,8 @@ Pod::Spec.new do |s|
   #
 
   s.source       = {
-  :git => "https://github.com/acmethunder/ACMWebTable.git",
-  :tag => "0.0.2" }
+  	:git => "https://github.com/acmethunder/ACMWebTable.git",
+  	:tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
