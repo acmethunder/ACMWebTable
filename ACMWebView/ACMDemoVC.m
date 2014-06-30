@@ -47,7 +47,7 @@ static CGFloat nav_bar_height;
     ACMWebTable *webTable = [[ACMWebTable alloc] initWithFrame:webFrame];
     webTable.delegate = self;
     webTable.dataSource = self;
-    webTable.backgroundColor = [UIColor redColor];
+    webTable.backgroundColor = [UIColor cyanColor];
     self.view = webTable;
     self.tableView = webTable;
 }
