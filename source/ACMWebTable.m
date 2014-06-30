@@ -138,10 +138,6 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
 - (void)webViewDidStartLoad:(UIWebView *)webView {}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-//    if ( [webView isKindOfClass:[ACMWebView class]] ) {
-//        ACMWebView *tempWeb =  (ACMWebView*)webView;
-//        [tempWeb setNeedsLayout];
-//    }
     [webView setNeedsLayout];
     
     if ( webView == self.currentView ) {

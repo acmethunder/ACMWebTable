@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		297BF5651961E1EE00CC978A /* sample_6.txt in Resources */ = {isa = PBXBuildFile; fileRef = 297BF5641961E1EE00CC978A /* sample_6.txt */; };
 		29AC4087194607B500FF9871 /* sample_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4086194607B500FF9871 /* sample_1.txt */; };
 		29AC4089194607DC00FF9871 /* sample_2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC4088194607DC00FF9871 /* sample_2.txt */; };
 		29AC408B194607FA00FF9871 /* sample_3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 29AC408A194607FA00FF9871 /* sample_3.txt */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		297BF5641961E1EE00CC978A /* sample_6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_6.txt; sourceTree = "<group>"; };
 		29AC4086194607B500FF9871 /* sample_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_1.txt; sourceTree = "<group>"; };
 		29AC4088194607DC00FF9871 /* sample_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_2.txt; sourceTree = "<group>"; };
 		29AC408A194607FA00FF9871 /* sample_3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_3.txt; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				29AC408A194607FA00FF9871 /* sample_3.txt */,
 				29AC408C1946081F00FF9871 /* sample_4.txt */,
 				29AC408E1946088F00FF9871 /* sample_5.txt */,
+				297BF5641961E1EE00CC978A /* sample_6.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				516433B0194381DA00FC3B6A /* InfoPlist.strings in Resources */,
+				297BF5651961E1EE00CC978A /* sample_6.txt in Resources */,
 				29AC408F1946088F00FF9871 /* sample_5.txt in Resources */,
 				29AC4089194607DC00FF9871 /* sample_2.txt in Resources */,
 				29AC408B194607FA00FF9871 /* sample_3.txt in Resources */,

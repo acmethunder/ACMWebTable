@@ -87,11 +87,17 @@ static CGFloat nav_bar_height;
     NSString *sample_five_html = [[NSString alloc] initWithContentsOfURL:sample_five_url
                                                                 encoding:NSUTF8StringEncoding error:NULL];
     
+    NSURL *sample_six_url = [bundle URLForResource:@"sample_6" withExtension:@"txt"];
+    NSString *sample_six_html = [[NSString alloc] initWithContentsOfURL:sample_six_url
+                                                               encoding:NSUTF8StringEncoding
+                                                                  error:NULL];
+    
     NSArray *items = @[
                        sample_one_html,
                        sample_two_html,
                        sample_three_html,
                        sample_four_html,
+                       sample_six_html,
                        sample_five_html
                        ];
     
@@ -135,7 +141,7 @@ static CGFloat nav_bar_height;
                                                     baseURL:baseURL];
     
 
-    if ( index < (self.items.count - 1) ) {
+    if ( index < (self.items.count) ) {
         CGFloat footerHeight = 60.0f;
         CGRect footerFrame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), footerHeight);
         UILabel *footer = [[UILabel alloc] initWithFrame:footerFrame];
