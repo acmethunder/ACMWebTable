@@ -13,7 +13,7 @@
 #pragma mark Floating Point
 
 const CGFloat kACMWebTableNoFooterOffset                     = 60.0f;
-const CGFloat kACMWebTableOffScreenOffset                    = 80.0f;
+const CGFloat kACMWebTableOffScreenOffset                    = 0.0f;
 
 const NSTimeInterval kACMWebTableDefaultAnimationTime        = 0.5;
 const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
@@ -243,6 +243,18 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
     }
 }
 
+- (UIImage *)screenshotBeforeUpdate:(BOOL)beforeUpdate {
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0.0f);
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:!beforeUpdate];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    image = [UIImage imageWithData:imageData scale:[[UIScreen mainScreen] scale]];
+    return image;
+}
+
+
 - (void) moveToNext {
     if ( (! self.animating) && self.nextView ) {
         self.animating = YES;
@@ -258,15 +270,20 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
         
+        [self sendSubviewToBack:_currentView];
+
+        UIImageView *currentSnapshot = [[UIImageView alloc] initWithImage:[self screenshotBeforeUpdate:YES]];
+        [self addSubview:currentSnapshot];
+        
         [UIView animateWithDuration:self.animationTime
                          animations:^{
-                             CGRect currentFrame = weakCurrent.frame;
+                             CGRect currentFrame = currentSnapshot.frame;
                              CGFloat currentHeight = CGRectGetHeight(currentFrame);
-                             weakCurrent.frame = CGRectMake(
-                                                            CGRectGetMinX(currentFrame),
-                                                            -currentHeight - kACMWebTableOffScreenOffset,
-                                                            CGRectGetWidth(currentFrame),
-                                                            currentHeight );
+                             currentSnapshot.frame = CGRectMake(
+                                                                CGRectGetMinX(currentFrame),
+                                                                -currentHeight - kACMWebTableOffScreenOffset,
+                                                                CGRectGetWidth(currentFrame),
+                                                                currentHeight );
                              
                              CGRect nextFrame = weakNext.frame;
                              CGRect selfFrame = weakSelf.frame;
@@ -277,6 +294,8 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                                          CGRectGetHeight(selfFrame) );
                          } completion:^(BOOL finished) {
                              if ( finished ) {
+                                 weakCurrent.frame = currentSnapshot.frame;
+                                 [currentSnapshot removeFromSuperview];
                                  [weakSelf.previousView removeFromSuperview];
                                  weakSelf.previousView = weakCurrent;
                                  weakSelf.currentView = weakNext;
@@ -317,11 +336,16 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
         __weak typeof(self.currentView) weakCurrent   = self.currentView;
         __weak typeof(self) weakSelf                  = self;
         
+        [self sendSubviewToBack:_currentView];
+        
+        UIImageView *currentSnapshot = [[UIImageView alloc] initWithImage:[self screenshotBeforeUpdate:YES]];
+        [self addSubview:currentSnapshot];
+        
         [UIView animateWithDuration:self.animationTime
                          animations:^{
-                             CGRect currentFrame = weakCurrent.frame;
+                             CGRect currentFrame = currentSnapshot.frame;
                              CGFloat currentHeight = CGRectGetHeight(weakSelf.frame);
-                             weakCurrent.frame = CGRectMake(
+                             currentSnapshot.frame = CGRectMake(
                                                             CGRectGetMinX(currentFrame),
                                                             currentHeight + kACMWebTableOffScreenOffset,
                                                             CGRectGetWidth(currentFrame),
@@ -335,6 +359,8 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                                              CGRectGetHeight(previousFrame) );
                          } completion:^(BOOL finished) {
                              if ( finished ) {
+                                 weakCurrent.frame = currentSnapshot.frame;
+                                 [currentSnapshot removeFromSuperview];
                                  [weakSelf.nextView removeFromSuperview];
                                  weakSelf.nextView = weakCurrent;
                                  weakSelf.currentView = weakPrevious;
