@@ -284,7 +284,8 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                                                 -currentHeight - kACMWebTableOffScreenOffset,
                                                                 CGRectGetWidth(currentFrame),
                                                                 currentHeight );
-                             
+                             weakCurrent.frame = currentSnapshot.frame;
+
                              CGRect nextFrame = weakNext.frame;
                              CGRect selfFrame = weakSelf.frame;
                              weakNext.frame = CGRectMake(
@@ -350,6 +351,7 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                                             currentHeight + kACMWebTableOffScreenOffset,
                                                             CGRectGetWidth(currentFrame),
                                                             CGRectGetHeight(currentFrame) );
+                             weakCurrent.frame = currentSnapshot.frame;
 
                              CGRect previousFrame = weakPrevious.frame;
                              weakPrevious.frame = CGRectMake(
