@@ -163,7 +163,11 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
 #pragma mark UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    ACMLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
+    if (scrollView != self.currentView.scrollView) { // Comparison on pointers is fine in that case
+        return;
+    }
+    
+    ACMLog( @"%p Offset => %f, Content Size => %f", scrollView, self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
     ACMWebTableScrollDirection direction = ACMWebTableScrollDirectionUnknown;
     if( [scrollView.panGestureRecognizer translationInView:self.currentView].y  < 0.0f ) {
         direction = ACMWebTableScrollDirectionUp;
