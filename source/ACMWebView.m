@@ -91,6 +91,9 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
                                      -CGRectGetHeight(titleFrame) );
     }
     
+    BOOL animationsEnabled = [UIView areAnimationsEnabled];
+    [UIView setAnimationsEnabled:NO];
+    
     // layout header
     UIView *header = self.headerView;
     if ( header ) {
@@ -115,6 +118,8 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
                                   CGRectGetHeight(footerFrame) );
     }
     
+    [UIView setAnimationsEnabled:animationsEnabled];
+
     CGFloat titleHeight = CGRectGetHeight(titleView.frame);
     self.scrollView.contentInset = UIEdgeInsetsMake(
                                                     titleHeight,
