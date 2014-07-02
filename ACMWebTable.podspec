@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ACMWebTable"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "Provides some UITableVIew like behaviour for managing multiple to UIWebViews."
 
   s.license      = "MIT"
