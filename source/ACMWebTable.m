@@ -159,7 +159,11 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
 #pragma mark UIScrollViewDelegate
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
-    ACMLog( @"Offset => %f, Content Size => %f", self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
+    if (scrollView != self.currentView.scrollView) { // Comparison on pointers is fine in that case
+        return;
+    }
+    
+    ACMLog( @"%p Offset => %f, Content Size => %f", scrollView, self.currentView.scrollView.contentOffset.y, self.currentView.scrollView.contentSize.height );
     ACMWebTableScrollDirection direction = ACMWebTableScrollDirectionUnknown;
     if( [scrollView.panGestureRecognizer translationInView:self.currentView].y  < 0.0f ) {
         direction = ACMWebTableScrollDirectionUp;
@@ -180,7 +184,6 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
         else if ( scrollView.contentOffset.y < (-self.currentView.headerContentHeight) ) {
             [self moveToPrevious];
         }
-
     }
 }
 
@@ -266,6 +269,8 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
         __weak typeof(self.currentView) weakCurrent = self.currentView;
         __weak typeof(self) weakSelf                = self;
         
+        nextView.hidden = NO;
+        
         [self sendSubviewToBack:_currentView];
 
         UIImageView *currentSnapshot = [[UIImageView alloc] initWithImage:[self screenshotBeforeUpdate:YES]];
@@ -280,7 +285,8 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                                                 -currentHeight - kACMWebTableOffScreenOffset,
                                                                 CGRectGetWidth(currentFrame),
                                                                 currentHeight );
-                             
+                             weakCurrent.frame = currentSnapshot.frame;
+
                              CGRect nextFrame = weakNext.frame;
                              CGRect selfFrame = weakSelf.frame;
                              weakNext.frame = CGRectMake(
@@ -296,6 +302,8 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                  weakSelf.previousView = weakCurrent;
                                  weakSelf.currentView = weakNext;
                                  weakSelf.currentIndex++;
+                                 weakCurrent.hidden = YES;
+
                                  ACMWebView *nextNew = [weakSelf buildNext];
                                  
                                  if ( nextNew ) {
@@ -332,6 +340,8 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
         __weak typeof(self.currentView) weakCurrent   = self.currentView;
         __weak typeof(self) weakSelf                  = self;
         
+        previous.hidden = NO;
+
         [self sendSubviewToBack:_currentView];
         
         UIImageView *currentSnapshot = [[UIImageView alloc] initWithImage:[self screenshotBeforeUpdate:YES]];
@@ -346,6 +356,7 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                                             currentHeight + kACMWebTableOffScreenOffset,
                                                             CGRectGetWidth(currentFrame),
                                                             CGRectGetHeight(currentFrame) );
+                             weakCurrent.frame = currentSnapshot.frame;
 
                              CGRect previousFrame = weakPrevious.frame;
                              weakPrevious.frame = CGRectMake(
@@ -361,6 +372,7 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
                                  weakSelf.nextView = weakCurrent;
                                  weakSelf.currentView = weakPrevious;
                                  weakSelf.currentIndex--;
+                                 weakCurrent.hidden = YES;
                                  ACMWebView *previousNew = [weakSelf buildPrevious];
                                  
                                  if ( previousNew ) {
@@ -408,6 +420,7 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
             webView.delegate = self;
             webView.scrollView.delegate = self;
             [webView loadContent];
+            webView.hidden = YES;
         }
     }
     
@@ -425,6 +438,7 @@ const NSTimeInterval kACMWebTableDelayPreviousAndNextLoading = 0.2;
             webView.delegate = self;
             webView.scrollView.delegate = self;
             [webView loadContent];
+            webView.hidden = YES;
         }
     }
     
