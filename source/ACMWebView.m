@@ -140,8 +140,7 @@ NSString * const kACMWebViewTouchDownNotificationName = @"com.acmwebview.touchdo
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     if (action == @selector(copy:) ||
         action == @selector(paste:)||
-        action == @selector(cut:) ||
-        action == @selector(_define:))
+        action == @selector(cut:))
     {
         return NO;
     }
